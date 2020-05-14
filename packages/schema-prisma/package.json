@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/schema-prisma",
-    "version": "1.0.9-ci-fix.d42d695.0",
+    "version": "1.0.9-dependabot.c184705.0",
     "description": "prisma schema",
     "main": "./dist/index.js",
     "scripts": {
@@ -20,7 +20,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@feuertiger/utils-graphql": "1.0.9-ci-fix.d42d695.0",
+        "@feuertiger/utils-graphql": "1.0.9-dependabot.c184705.0",
         "@nexus/schema": "0.13.1",
         "@prisma/client": "2.0.0-beta.4",
         "nexus": "0.21.0",
