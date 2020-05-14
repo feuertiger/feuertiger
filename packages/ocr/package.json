@@ -1,0 +1,29 @@
+{
+    "name": "@feuertiger/ocr",
+    "version": "1.0.9-renovate.fc52883.0",
+    "description": "ocr for feuertiger",
+    "main": "./dist/index.js",
+    "sideEffects": false,
+    "scripts": {
+        "build": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/feuertiger/feuertiger",
+        "directory": "packages/ocr"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@google-cloud/vision": "1.11.0",
+        "firebase": "7.14.3",
+        "tesseract.js": "2.1.1"
+    },
+    "devDependencies": {
+        "@types/node-fetch": "2.5.7",
+        "@types/uuid": "7.0.3"
+    }
+}

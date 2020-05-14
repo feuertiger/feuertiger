@@ -5,7 +5,7 @@ import { setContext } from 'apollo-link-context';
 import withApollo from 'next-with-apollo';
 import fetch from 'isomorphic-unfetch';
 
-import { AuthSingleton } from './withAuth';
+import AuthSingleton from './authSingleton';
 
 // Update the GraphQL endpoint to any instance of GraphQL that you like
 const GRAPHQL_URL = 'http://localhost:4000/';

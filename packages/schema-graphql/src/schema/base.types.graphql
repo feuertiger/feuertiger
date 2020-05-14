@@ -1,0 +1,4 @@
+type Timeslot {
+    start: String
+    end: String
+}

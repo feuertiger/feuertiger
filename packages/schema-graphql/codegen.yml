@@ -1,18 +1,18 @@
 overwrite: true
 hooks:
-  afterAllFileWrite:
-    - prettier --write
+    afterAllFileWrite:
+        - prettier --write
 generates:
-  ./dist/index.ts:
-    schema: "./dist/schema.graphql"
-    declarationKind: "interface"
-    plugins:
-      - typescript
-      - typescript-operations
-      - typescript-resolvers
-  ./dist/schema.json:
-    schema: "./dist/schema.graphql"
-    config:
-      minify: false
-    plugins:
-      - introspection
+    ./lib/types.d.ts:
+        schema: './lib/schema.graphql'
+        declarationKind: 'interface'
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-resolvers
+    ./lib/schema.json:
+        schema: './lib/schema.graphql'
+        config:
+            minify: false
+        plugins:
+            - introspection

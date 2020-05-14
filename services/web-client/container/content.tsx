@@ -9,9 +9,9 @@ interface Props extends AuthProps {
     children?: ReactNode;
 }
 
-type State = {
+interface State {
     open: boolean;
-};
+}
 
 const StyledMain = styled.main`
     flex-grow: 1;

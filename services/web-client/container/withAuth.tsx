@@ -1,28 +1,8 @@
 import React from 'react';
-import getConfig from 'next/config';
-
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
-export class AuthSingleton {
-    public firebaseAuth: firebase.auth.Auth;
-
-    static instance: AuthSingleton;
-
-    constructor() {
-        if (AuthSingleton.instance) {
-            return AuthSingleton.instance;
-        }
-
-        const { publicRuntimeConfig } = getConfig();
-        const { tokens } = publicRuntimeConfig;
-
-        const firebaseApp = firebase.initializeApp(tokens);
-        this.firebaseAuth = firebaseApp.auth();
-
-        AuthSingleton.instance = this;
-    }
-}
+import AuthSingleton from './authSingleton';
 
 export interface AuthProps {
     auth?: firebase.auth.Auth;
@@ -52,9 +32,9 @@ export default <TProps extends any>(
 
         componentDidMount() {
             const authSignleton = new AuthSingleton();
-            const firebaseAuth: firebase.auth.Auth = authSignleton.firebaseAuth;
+            const { firebaseAuth } = authSignleton;
 
-            firebaseAuth.onAuthStateChanged(async user =>
+            firebaseAuth.onAuthStateChanged(async (user) =>
                 this.setState({ isSignedIn: !!user, isLoading: false })
             );
             const auth: firebase.auth.Auth = {
@@ -72,7 +52,7 @@ export default <TProps extends any>(
                         isLoading: false,
                         isSignedIn: true
                     });
-                    location.reload(true);
+                    window.location.reload(true);
                     return credential;
                 } catch (error) {
                     this.setState({ error });
@@ -82,7 +62,7 @@ export default <TProps extends any>(
 
             auth.signOut = async () => {
                 await firebaseAuth.signOut();
-                location.reload(true);
+                window.location.reload(true);
             };
 
             this.setState({

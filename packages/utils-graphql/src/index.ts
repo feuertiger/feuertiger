@@ -5,7 +5,6 @@ import {
     IntrospectionInterfaceType
 } from 'graphql';
 import uuidv4 from 'uuid/v4';
-import { Scalars } from '@feuertiger/schema-graphql';
 
 export const isNodeObjectType = (
     type: any
@@ -38,8 +37,7 @@ export const isIntrospectionQueryObjectType = (
     type.kind === 'OBJECT' && type.name === 'Query';
 
 // GlobalId Utils
-export const GenerateId = (type: string): Scalars['ID'] =>
-    `${type}:${uuidv4()}`;
+export const GenerateId = (type: string): string => `${type}:${uuidv4()}`;
 
 export type IdInfo = {
     type: string;

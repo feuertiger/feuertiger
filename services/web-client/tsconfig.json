@@ -1,26 +1,28 @@
 {
     "compilerOptions": {
         "lib": ["dom", "dom.iterable", "esnext"],
+        "types": ["react", "node"],
         "skipLibCheck": true,
         "noEmit": true,
         "module": "esnext",
         "moduleResolution": "node",
-        "isolatedModules": true,
         "jsx": "preserve",
         "target": "es5",
         "allowJs": true,
         "strict": false,
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "isolatedModules": true
     },
     "include": [
         "next-env.d.ts",
+        "**/*.js",
         "**/*.ts",
         "**/*.tsx",
-        "utils/apollo-client.js",
         "pages/_document.js",
-        "pages/_app.js"
+        "pages/_app.js",
+        "next.config.js"
     ],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "**/*.test.ts"]
 }

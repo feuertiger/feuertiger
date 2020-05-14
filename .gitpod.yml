@@ -1,0 +1,26 @@
+tasks:
+    - init: yarn && yarn linkdist
+
+image:
+    file: .dev-env.Dockerfile
+
+vscode:
+    extensions:
+        - max-SS.Cyberpunk@1.2.5:5r0Bce1tseSEV2qESwg4Mw==
+        - eamodio.gitlens@10.2.1:e0IYyp0efFqVsrZwsIe8CA==
+        - vscode-icons-team.vscode-icons@10.1.1:Tp5DMCXZn0uwhjeP1TcmkQ==
+        - tomoki1207.pdf@0.6.0:Zmr1w8yjiMhfudc+CsNRJg==
+        - jpoissonnier.vscode-styled-components@0.0.29:06Mo1MxbFX3IJQGCnvR7SA==
+        - dbaeumer.vscode-eslint@2.1.5:9Wg0Glx/TwD8ElFBg+FKcQ==
+        - Prisma.vscode-graphql@0.2.14:hofLTU1qSsbqFT6C8sxyiQ==
+        - mikestead.dotenv@1.0.1:SSXjr5hZcbqSF7nMIhTNnA==
+        - CoenraadS.bracket-pair-colorizer@1.0.61:fqPT1sJEqaEdrfXeYbdW+A==
+        - ecmel.vscode-html-css@0.2.3:RBTpzQbz8rn5KTlc82tnsQ==
+        - eg2.vscode-npm-script@0.3.11:peDPJqeL8FmmJiabU4fAJQ==
+        - esbenp.prettier-vscode@4.6.0:3ul2z2dsx8yqcbS8VovpnQ==
+        - Prisma.prisma@0.0.35:Yi3++OYdqRbAzceb3CKTVA==
+        - jsayol.firebase-explorer@0.3.3:dTQmzKOz2EVA/5W3EP1pWw==
+        - cschleiden.vscode-github-actions@0.5.1:y03Lpk4w3r06DX+IHWgyYQ==
+        - me-dutour-mathieu.vscode-github-actions@3.0.0:c4x2O4EWjOwD73FqnZZ9LQ==
+        - anseki.vscode-color@0.4.5:IvRhItGBW9IZ6jiqp5AVdg==
+        - msjsdiag.debugger-for-chrome@4.12.6:S9ct7J+XIe9f82CdPpLyWw==

@@ -1,0 +1,24 @@
+type Person implements Node {
+    id: ID!
+    firstname: String
+    lastname: String
+    exercises: [Exercise]
+}
+
+input _Person {
+    id: ID!
+    firstname: String
+    lastname: String
+    exercises: [_Node]
+}
+
+extend type Query {
+    allPersons(filter: _Filter): [Person]
+}
+
+extend type Mutation {
+    createPerson(person: _Person!): Person @create
+    updatePerson(exercise: _Exercise!): Exercise
+    addExerciseToPerson(exerciseId: ID!, personId: [ID]!): boolean
+    removeExerciseFromPerson(exerciseId: ID!, personId: [ID]!): boolean
+}

@@ -1,10 +1,11 @@
 {
     "name": "@feuertiger/proxy-graphql",
-    "version": "1.0.9-dev.1c401ce.0",
-    "description": "graphql backend, proxy to database",
+    "version": "1.0.9-renovate.fc52883.0",
+    "description": "graphql backend and proxy to database",
     "main": "./dist/index.js",
     "scripts": {
         "dev": "ts-node-dev ./src/startup.ts",
+        "test": "jest --collect-coverage",
         "build": "tsc"
     },
     "repository": {
@@ -18,20 +19,30 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@feuertiger/data-access-firebase": "1.0.9-dev.1c401ce.0",
-        "@feuertiger/schema-graphql": "1.0.9-dev.1c401ce.0",
-        "@feuertiger/tools": "1.0.9-dev.1c401ce.0",
-        "@feuertiger/utils-graphql": "1.0.9-dev.1c401ce.0",
-        "apollo-server": "2.9.13",
-        "apollo-server-express": "2.9.13",
+        "@feuertiger/ocr": "1.0.9-renovate.fc52883.0",
+        "@feuertiger/schema-graphql": "1.0.9-renovate.fc52883.0",
+        "@feuertiger/tools": "1.0.9-renovate.fc52883.0",
+        "@feuertiger/utils-graphql": "1.0.9-renovate.fc52883.0",
+        "apollo-server": "2.13.1",
+        "apollo-server-express": "2.13.1",
         "express": "4.17.1",
-        "firebase-admin": "8.8.0",
+        "firebase": "7.14.3",
+        "firebase-admin": "8.12.1",
         "graphql": "14.5.8",
-        "graphql-import": "0.7.1"
+        "graphql-import": "0.7.1",
+        "lodash.merge": "4.6.2",
+        "neo4j-driver": "4.0.1"
     },
     "devDependencies": {
-        "ts-node": "8.5.4",
+        "@babel/core": "7.9.6",
+        "@babel/preset-env": "7.9.6",
+        "@babel/preset-typescript": "7.9.0",
+        "@jest/globals": "26.0.1",
+        "@types/lodash.merge": "4.6.6",
+        "babel-jest": "26.0.1",
+        "jest": "26.0.1",
+        "ts-node": "8.10.1",
         "ts-node-dev": "1.0.0-pre.44",
-        "typescript": "3.7.3"
+        "typescript": "3.9.2"
     }
 }

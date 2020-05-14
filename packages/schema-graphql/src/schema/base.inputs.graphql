@@ -1,0 +1,13 @@
+input _Filter {
+    skip: Int
+    search: String
+}
+
+input _Node {
+    id: ID!
+}
+
+input _Timeslot {
+    start: String
+    end: String
+}

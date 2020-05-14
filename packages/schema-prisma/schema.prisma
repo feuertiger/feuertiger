@@ -1,0 +1,34 @@
+datasource postgresql {
+  url      = "postgresql://prisma:prisma@localhost"
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./dist"
+}
+
+model Exercise {
+  id           Int      @id
+  topic        String
+  timeslot     Timeslot @relation(fields: [timeslotId], references: [id])
+  timeslotId   Int
+  leaders      Person[] @relation("Exercise_Leader")
+  participants Person[] @relation("Exercise_Participant", references: [id])
+}
+
+model Person {
+  id         Int        @id
+  firstname  String
+  lastname   String
+  exercises  Exercise[] @relation("Exercise_Participant", references: [id])
+  Exercise   Exercise?  @relation("Exercise_Leader", fields: [exerciseId], references: [id])
+  exerciseId Int?
+}
+
+model Timeslot {
+  id       Int        @id
+  start    DateTime
+  end      DateTime
+  Exercise Exercise[]
+}

@@ -1,0 +1,21 @@
+name: Build development environment
+
+on:
+  push:
+    paths:
+      - .dev-env.Dockerfile
+
+jobs:
+  prepare_dev_environment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish dev-environment to github package registry
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: feuertiger/feuertiger-dev-environment
+          cache_froms: feuertiger/feuertiger-dev-environment:latest
+          tags: latest
+          dockerfile: .dev-env.Dockerfile

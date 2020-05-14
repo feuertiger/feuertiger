@@ -1,16 +1,13 @@
 {
     "name": "@feuertiger/schema-graphql",
-    "version": "1.0.9-dev.1c401ce.0",
+    "version": "1.0.9-renovate.fc52883.0",
     "description": "graphql schema",
-    "main": "./dist/index.ts",
-    "files": [
-        "./dist"
-    ],
+    "main": "./dist/index.js",
     "scripts": {
-        "clean": "rimraf dist/*",
+        "clean": "rimraf ./dist/* && rimraf ./lib/* && mkdirp ./dist && mkdirp ./lib",
         "combine": "node ./combine.js",
-        "generate": "graphql-codegen --config codegen.yml",
-        "build": "npm run clean && npm run combine && npm run generate"
+        "codegen": "graphql-codegen --config codegen.yml",
+        "build": "npm run clean && npm run combine && npm run codegen && tsc"
     },
     "repository": {
         "type": "git",
@@ -23,16 +20,22 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "graphql": "^14.5.8"
+        "@feuertiger/schema-prisma": "1.0.9-renovate.fc52883.0",
+        "@feuertiger/utils-graphql": "1.0.9-renovate.fc52883.0",
+        "apollo-server": "2.9.15",
+        "apollo-server-express": "2.9.15",
+        "graphql": "14.5.8",
+        "graphql-import": "0.7.1",
+        "nexus-prisma": "^0.13.0"
     },
     "devDependencies": {
-        "@graphql-codegen/cli": "1.9.1",
-        "@graphql-codegen/introspection": "1.9.1",
-        "@graphql-codegen/typescript": "1.9.1",
-        "@graphql-codegen/typescript-operations": "1.9.1",
-        "@graphql-codegen/typescript-react-apollo": "1.9.1",
-        "@graphql-codegen/typescript-resolvers": "1.9.1",
-        "graphql-import": "0.7.1",
+        "@graphql-codegen/cli": "1.11.2",
+        "@graphql-codegen/introspection": "1.11.2",
+        "@graphql-codegen/typescript": "1.11.2",
+        "@graphql-codegen/typescript-operations": "1.11.2",
+        "@graphql-codegen/typescript-react-apollo": "1.11.2",
+        "@graphql-codegen/typescript-resolvers": "1.11.2",
+        "mkdirp": "1.0.4",
         "prettier": "1.19.1",
         "rimraf": "3.0.0"
     },

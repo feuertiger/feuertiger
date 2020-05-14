@@ -10,29 +10,38 @@ interface State {
     addDialogOpen: boolean;
 }
 
+interface Participants {
+    edges: [
+        {
+            node: {
+                firstname: string;
+                lastname: string;
+            };
+        }
+    ];
+}
+
 interface Data {
     loading: boolean;
     error: any;
     node: {
-        participants: {
-            edges: [
-                {
-                    node: {
-                        firstname: string;
-                        lastname: string;
-                    };
-                }
-            ];
-        };
+        participants: Participants;
     };
 }
 
 interface Props extends DataProps<Data> {}
 
-const MemberTable = ({ member }) => {
+const MemberTable = ({ member }: { member: Participants }) => {
     const participants = member.edges.map(({ node }) => node);
     return (
         <MaterialTable
+            options={{
+                exportButton: true,
+                filtering: true,
+                grouping: true,
+                search: true,
+                sorting: true
+            }}
             columns={[
                 { title: 'Vorname', field: 'firstname' },
                 { title: 'Nachname', field: 'lastname' },
@@ -41,7 +50,8 @@ const MemberTable = ({ member }) => {
                 {
                     field: 'edit',
                     title: '',
-                    render: rowData => (
+                    filtering: false,
+                    render: () => (
                         <Fab color="primary" aria-label="edit">
                             <EditIcon />
                         </Fab>

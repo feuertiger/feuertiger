@@ -5,6 +5,8 @@ import { ThemeProvider } from 'styled-components';
 import { ApolloProvider } from '@apollo/react-hooks';
 import red from '@material-ui/core/colors/red';
 import Skeleton from '@material-ui/lab/Skeleton';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import withAuth, { AuthProps, AuthStateProps } from '../container/withAuth';
 import withApollo, { ApolloProps } from '../container/withApollo';
@@ -60,25 +62,27 @@ class App extends NextApp<Props> {
 
         return (
             <ApolloProvider client={apollo}>
-                <ThemeProvider theme={theme}>
-                    <Head />
-                    {showLogin && <Login auth={auth} />}
-                    <Content auth={auth}>
-                        {showSkeleton ? (
-                            <>
-                                <Skeleton height={40} />
-                                <Skeleton variant="rect" height={190} />
-                                <Skeleton height={40} />
-                                <Skeleton variant="rect" height={190} />
-                                <Skeleton height={40} />
-                                <Skeleton variant="rect" height={190} />
-                            </>
-                        ) : (
-                            // eslint-disable-next-line
-                            <Component {...pageProps} />
-                        )}
-                    </Content>
-                </ThemeProvider>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <ThemeProvider theme={theme}>
+                        <Head />
+                        {showLogin && <Login auth={auth} />}
+                        <Content auth={auth}>
+                            {showSkeleton ? (
+                                <>
+                                    <Skeleton height={40} />
+                                    <Skeleton variant="rect" height={190} />
+                                    <Skeleton height={40} />
+                                    <Skeleton variant="rect" height={190} />
+                                    <Skeleton height={40} />
+                                    <Skeleton variant="rect" height={190} />
+                                </>
+                            ) : (
+                                // eslint-disable-next-line
+                                <Component {...pageProps} />
+                            )}
+                        </Content>
+                    </ThemeProvider>
+                </MuiPickersUtilsProvider>
             </ApolloProvider>
         );
     }

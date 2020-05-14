@@ -1,43 +1,105 @@
 name: Continuous Integration
 
-on:
-    repository_dispatch:
-        types: [build]
+on: [push]
 
 jobs:
-    build_and_publish:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-              with:
-                  token: ${{ secrets.PRIVATE_TOKEN }}
-                  fetch-depth: 0
-            - uses: actions/setup-node@v1
-              with:
-                  node-version: '13.x'
-            - uses: bahmutov/npm-install@v1
-            - name: Build
-              env:
-                  FIREBASE_SECRETS_APP_APIKEY: ${{ secrets.FIREBASE_SECRETS_APP_APIKEY }}
-                  GRAB_TOKEN_TO_BREAK_LOOP: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  yarn run link
-                  yarn run build
-            - name: Publish
-              run: |
-                  git config --global user.name 'robotiger'
-                  git config --global user.email 'robotiger@users.noreply.github.com'
-                  echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
-                  yarn run publish
-    dispatch_deploy:
-        needs: build_and_publish
-        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
-        runs-on: ubuntu-latest
-        steps:
-            - name: Repository Dispatch
-              uses: peter-evans/repository-dispatch@v1
-              with:
-                  token: ${{ secrets.PRIVATE_TOKEN }}
-                  repository: feuertiger/feuertiger
-                  event-type: deploy
-                  client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+  format:
+    if: github.ref != 'refs/heads/dev' && github.ref != 'refs/heads/master' && github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    container: feuertiger/feuertiger-dev-environment:latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Prepare
+        run: |
+          git config --global user.name 'feuertiger'
+          git config --global user.email 'feuertiger@users.noreply.github.com'
+      - name: Restore node_modules
+        uses: actions/cache@master
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        run: yarn
+      - name: Format & Fix
+        run: |
+          yarn format
+          yarn lint || true
+          git diff-index --quiet HEAD || git commit -am "format & fix" && git push --force
+
+  test:
+    runs-on: ubuntu-latest
+    container: feuertiger/feuertiger-dev-environment:latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Restore node_modules
+        uses: actions/cache@master
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        run: |
+          yarn
+          yarn build
+          yarn linkdist
+      - name: Test
+        run: |
+          yarn lint
+          yarn test
+
+  publish:
+    needs: test
+    if: github.actor != 'dependabot[bot]' && github.actor != 'dependabot-preview[bot]'
+    runs-on: ubuntu-latest
+    container: feuertiger/feuertiger-dev-environment:latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Prepare
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          git config --global user.name 'feuertiger'
+          git config --global user.email 'feuertiger@users.noreply.github.com'
+      - name: Restore node_modules
+        uses: actions/cache@master
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: Install
+        run: yarn
+      - name: Publish
+        run: |
+          yarn build
+          yarn run publish
+
+  deploy_firebase:
+    needs: publish
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
+    container: feuertiger/feuertiger-dev-environment:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy Firebase
+        working-directory: ./deployments/firebase/functions
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_SECRETS_TYPE: ${{ secrets.FIREBASE_SECRETS_TYPE }}
+          FIREBASE_SECRETS_PROJECT_ID: ${{ secrets.FIREBASE_SECRETS_PROJECT_ID }}
+          FIREBASE_SECRETS_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_SECRETS_PRIVATE_KEY_ID }}
+          FIREBASE_SECRETS_PRIVATE_KEY: ${{ secrets.FIREBASE_SECRETS_PRIVATE_KEY }}
+          FIREBASE_SECRETS_CLIENT_EMAIL: ${{ secrets.FIREBASE_SECRETS_CLIENT_EMAIL }}
+          FIREBASE_SECRETS_CLIENT_ID: ${{ secrets.FIREBASE_SECRETS_CLIENT_ID }}
+          FIREBASE_SECRETS_AUTH_URI: ${{ secrets.FIREBASE_SECRETS_AUTH_URI }}
+          FIREBASE_SECRETS_TOKEN_URI: ${{ secrets.FIREBASE_SECRETS_TOKEN_URI }}
+          FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL }}
+          FIREBASE_SECRETS_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_SECRETS_CLIENT_X509_CERT_URL }}
+        run: |
+          echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}\n@feuertiger:registry=https://npm.pkg.github.com/feuertiger\npackage-lock=false" > .npmrc
+          npm i --no-package-lock
+          npm run createSecrets
+          npm run deploy:ci

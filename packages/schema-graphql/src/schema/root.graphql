@@ -1,0 +1,18 @@
+# import * from "directives.graphql"
+#
+# import * from "base.inputs.graphql"
+# import * from "base.interfaces.graphql"
+# import * from "base.types.graphql"
+# import * from "base.scalars.graphql"
+#
+# import * from "person.graphql"
+# import * from "exercise.graphql"
+
+type Query {
+    node(id: ID!): Node
+    ocr(image: String): String
+}
+
+type Mutation {
+    delete(id: ID!): Boolean
+}

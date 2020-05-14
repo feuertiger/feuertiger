@@ -1,11 +1,10 @@
 const fs = require('fs');
 const { importSchema } = require('graphql-import');
 
-const modulschema = require.resolve('./src/root.graphql');
+const combine = (src, out) => {
+    const path = require.resolve(src);
+    const schema = importSchema(path);
+    fs.writeFileSync(out, schema, 'utf8');
+};
 
-console.log('modulschema:', modulschema);
-
-const schema = importSchema(modulschema);
-
-fs.existsSync('./dist') || fs.mkdirSync('./dist');
-fs.writeFileSync('./dist/schema.graphql', schema, 'utf8');
+combine('./src/schema/root.graphql', './lib/schema.graphql');

@@ -1,1 +1,0 @@
-directive @resolvebyid(entity: string) on FIELD_DEFINITION | ENUM_VALUE

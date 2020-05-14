@@ -1,0 +1,27 @@
+type Exercise implements Node {
+    id: ID!
+    topic: String!
+    timeslot: Timeslot
+    leaders: [Person]
+    participants: [Person]
+}
+
+input _Exercise {
+    topic: String!
+    timeslot: _Timeslot
+    leaders: [_Node]
+    participants: [_Node]
+}
+
+extend type Query {
+    allExercises(filter: _Filter): [Exercise]
+}
+
+extend type Mutation {
+    createExercise(exercise: _Exercise!): Exercise
+    updateExercise(exercise: _Exercise!): Exercise
+    addLeadersToExercise(exerciseId: ID!, personId: [ID]!): boolean
+    addParticipantsToExercise(exerciseId: ID!, personId: [ID]!): boolean
+    removeLeadersFromExercise(exerciseId: ID!, personId: [ID]!): boolean
+    removeParticipantsFromExercise(exerciseId: ID!, personId: [ID]!): boolean
+}
