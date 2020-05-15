@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/firebase-functions",
-    "version": "1.0.9-dev.1bc7e74.0",
+    "version": "1.0.9-dependabot.11e0582.0",
     "description": "firebase deployment",
     "main": "./lib/index.js",
     "author": "",
@@ -18,9 +18,9 @@
         "node": "10"
     },
     "dependencies": {
-        "@feuertiger/proxy-graphql": "1.0.9-dev.1bc7e74.0",
-        "@feuertiger/tools": "1.0.9-dev.1bc7e74.0",
-        "@feuertiger/web-client": "1.0.9-dev.1bc7e74.0",
+        "@feuertiger/proxy-graphql": "1.0.9-dependabot.11e0582.0",
+        "@feuertiger/tools": "1.0.9-dependabot.11e0582.0",
+        "@feuertiger/web-client": "1.0.9-dependabot.11e0582.0",
         "firebase-admin": "8.12.1",
         "firebase-functions": "3.3.0"
     },

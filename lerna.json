@@ -1,6 +1,10 @@
 {
     "npmClient": "yarn",
-    "version": "1.0.9-dev.1bc7e74.0",
+    "version": "1.0.9-dependabot.11e0582.0",
     "useWorkspaces": true,
-    "packages": ["packages/*", "services/*", "deployments/firebase/functions"]
+    "packages": [
+        "packages/*",
+        "services/*",
+        "deployments/firebase/functions"
+    ]
 }
