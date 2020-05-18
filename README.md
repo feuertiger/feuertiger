@@ -55,6 +55,11 @@ You can start coding simply using the Gitpod integration.
     ```
 5. Start coding
 
+6. Login as Testuser
+    ```
+    User: feuertiger@feuertiger.com
+    Password: feuertiger
+    ```
 ---
 
 ## Architecture
