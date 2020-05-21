@@ -10,7 +10,8 @@ export const parseGlobalId = (
     };
 };
 
-export const buildId = (id: string, type: string): string => `${type}:${id}`;
+export const buildGlobalId = (id: string, type: string): string =>
+    `${type}:${id}`;
 
 export const connectInput = <T = _Node>(connections: _Node[]): Connection[] =>
     connections

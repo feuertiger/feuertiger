@@ -1,19 +1,16 @@
+/* eslint-disable global-require */
 const fs = require('fs');
 const { getPackages } = require('@lerna/project');
 
 const linkscript = `module.exports = require("../src/index");`;
 const linktypesscript = `export * from "../src/index";`;
 
-const getPackagePath = (name) => {
-    const packageJsonPath = require.resolve(`${name}/package.json`);
-    return packageJsonPath.split('package.json')[0];
-};
-
 const cwd = process.cwd();
 
 getPackages(cwd).then((pkgs) =>
     [...pkgs].forEach((pkg) => {
-        const path = getPackagePath(pkg.name);
+        const packageJsonPath = require.resolve(`${pkg.name}/package.json`);
+        const path = packageJsonPath.split('package.json')[0];
         const distpath = `${path}dist`;
         const distpathindex = `${distpath}/index.js`;
         const distpathindextypes = `${distpath}/index.d.ts`;
@@ -22,7 +19,11 @@ getPackages(cwd).then((pkgs) =>
             fs.existsSync(`${path}src/index.ts`) ||
             fs.existsSync(`${path}src/index.js`);
 
-        if (!hasIndexJs) {
+        // eslint-disable-next-line import/no-dynamic-require
+        const packageJson = require(packageJsonPath);
+        const hasDistIndexJs = packageJson.main === './dist/index.js';
+
+        if (!hasIndexJs || !hasDistIndexJs) {
             return;
         }
 

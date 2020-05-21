@@ -8,7 +8,6 @@
         "migrate:save": "prisma migrate save --experimental --name=$(git rev-parse --short HEAD) --schema=./src/schema.prisma",
         "migrate:up": "prisma migrate up --experimental --create-db --schema=./src/schema.prisma",
         "seed:test": "ts-node ./seeds/test/seed.ts",
-        "test": "yarn migrate:save && yarn migrate:up && yarn seed:test",
         "dev": "yarn migrate:save && yarn migrate:up && yarn seed:test && yarn build --watch"
     },
     "repository": {
