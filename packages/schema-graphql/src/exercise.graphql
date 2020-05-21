@@ -1,0 +1,15 @@
+type Exercise implements Node {
+    id: ID!
+    topic: String!
+    timeslot: Timeslot
+    leaders: [Person]
+    participants: [Person]
+}
+
+input _Exercise {
+    id: ID!
+    topic: String!
+    timeslot: _Timeslot
+    leaders: [_Node]
+    participants: [_Node]
+}

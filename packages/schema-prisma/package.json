@@ -4,29 +4,30 @@
     "description": "prisma schema",
     "main": "./dist/index.js",
     "scripts": {
-        "postinstall": "yarn global add @prisma/cli",
-        "prisma": "prisma generate",
-        "nexus": "node ./nexus.js",
-        "build": "npm run prisma && npm run nexus"
+        "build": " prisma generate --schema=./src/schema.prisma",
+        "migrate:save": "prisma migrate save --experimental --name=$(git rev-parse --short HEAD) --schema=./src/schema.prisma",
+        "migrate:up": "prisma migrate up --experimental --create-db --schema=./src/schema.prisma",
+        "seed:test": "ts-node ./seeds/test/seed.ts",
+        "test": "yarn migrate:save && yarn migrate:up && yarn seed:test",
+        "dev": "yarn migrate:save && yarn migrate:up && yarn seed:test && yarn build --watch"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/feuertiger/feuertiger",
+        "url": "https://gitlab.com/feuertiger/feuertiger",
         "directory": "packages/schema-prisma"
     },
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+        "registry": "https://gitlab.com/api/v4/projects/feuertiger/feuertiger/packages/npm/"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@nexus/schema": "0.13.1",
         "@prisma/client": "2.0.0-beta.5",
-        "nexus": "0.21.0",
-        "nexus-prisma": "0.13.0"
+        "casual": "^1.6.2"
     },
     "devDependencies": {
-        "@prisma/cli": "2.0.0-beta.5"
+        "@prisma/cli": "2.0.0-beta.5",
+        "ts-node": "8.10.1"
     },
     "gitHead": "7d224ef51bbc23af4badd7b61540546319995beb"
 }

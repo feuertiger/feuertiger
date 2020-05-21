@@ -1,0 +1,15 @@
+type Person implements Node {
+    id: ID!
+    firstname: String
+    lastname: String
+    exercisesParticipated: [Exercise]
+    exercisesLeaded: [Exercise]
+}
+
+input _Person {
+    id: ID!
+    firstname: String!
+    lastname: String!
+    exercisesParticipated: [_Node!]
+    exercisesLeaded: [_Node!]
+}

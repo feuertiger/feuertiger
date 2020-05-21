@@ -1,0 +1,33 @@
+datasource postgresql {
+  url      = "postgresql://feuertiger:feuertiger@localhost:5432/feuertiger"
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../dist"
+}
+
+model Exercise {
+  id           String   @id
+  topic        String
+  timeslot     Timeslot @relation(fields: [timeslotId], references: [id])
+  timeslotId   String
+  leaders      Person[] @relation("Exercise_Leader", references: [id])
+  participants Person[] @relation("Exercise_Participant", references: [id])
+}
+
+model Person {
+  id                    String     @id
+  firstname             String
+  lastname              String
+  exercisesParticipated Exercise[] @relation("Exercise_Participant", references: [id])
+  exercisesLeaded       Exercise[] @relation("Exercise_Leader", references: [id])
+}
+
+model Timeslot {
+  id       String     @id
+  start    DateTime
+  end      DateTime
+  Exercise Exercise[]
+}

@@ -1,2 +1,0 @@
-directive @create on FIELD_DEFINITION
-directive @id on FIELD_DEFINITION

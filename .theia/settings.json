@@ -18,5 +18,16 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
-    "typescript.tsdk": "./node_modules/typescript/lib"
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "sqltools.connections": [
+        {
+            "port": 5432,
+            "server": "localhost",
+            "dialect": "PostgreSQL",
+            "name": "database",
+            "database": "feuertiger",
+            "password": "feuertiger",
+            "username": "feuertiger"
+        }
+    ]
 }

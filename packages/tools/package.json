@@ -8,11 +8,11 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/feuertiger/feuertiger",
+        "url": "https://gitlab.com/feuertiger/feuertiger",
         "directory": "packages/tools"
     },
     "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
+        "registry": "https://gitlab.com/api/v4/projects/feuertiger/feuertiger/packages/npm/"
     },
     "author": "",
     "license": "ISC",

@@ -1,9 +1,0 @@
-Format:
-  extends:
-    - .docker-linux-runner
-  stage: Format
-  script:
-    - yarn linkdist
-    - yarn format
-    - yarn lint || true
-    - git diff-index --quiet HEAD || git commit -am "format & fix" && git push

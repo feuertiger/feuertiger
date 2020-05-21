@@ -1,7 +1,7 @@
 import admin, { ServiceAccount } from 'firebase-admin';
 import * as functions from 'firebase-functions';
 
-import { gqlServer as createGqlServer } from '@feuertiger/proxy-graphql';
+import { gqlServer as createGqlServer } from '@feuertiger/graphql';
 import { webServer as createWebServer } from '@feuertiger/web-client';
 import serviceAccount from './secrets.json';
 

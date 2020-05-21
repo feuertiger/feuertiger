@@ -1,12 +1,12 @@
 <p>
-   <a href="https://github.com/feuertiger/feuertiger/actions?query=workflow%3A%22Continuous+Integration%22">
-      <img src="https://github.com/feuertiger/feuertiger/workflows/Continuous%20Integration/badge.svg" alt="CI">
-   </a>
+   <a href="https://gitlab.com/feuertiger/feuertiger/-/commits/dev">
+        <img alt="pipeline status" src="https://gitlab.com/feuertiger/feuertiger/badges/dev/pipeline.svg" />
+    </a>
+    <a href="https://gitlab.com/feuertiger/feuertiger/-/commits/dev">
+        <img alt="coverage report" src="https://gitlab.com/feuertiger/feuertiger/badges/dev/coverage.svg" />
+    </a>
    <a href="https://gitpod.io/#https://gitlab.com/feuertiger/feuertiger">
-      <img src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod" alt="Gitpod">
-   </a>
-   <a href="https://github.com/feuertiger/feuertiger/blob/dev/.dependabot/config.yml">
-      <img src="https://flat.badgen.net/dependabot/feuertiger/feuertiger?icon=dependabot" alt="Dependabot" />
+        <img alt="Gitpod" src="https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod">
    </a>
 </p>
 
@@ -17,7 +17,8 @@ Feuertiger is an open source project to create a state-of-the-art platform for m
 The main benefits of using Feuertiger should be:
 
 -   Easy adaption of real world paper forms into the digital world and vice versa using OCR and PDF export
--   Easy hosting through straight forward infrastructure as code
+-   Easy import and export functionality to existing solutions
+-   Easy and cheap hosting through straight forward infrastructure as code
 
 ---
 
@@ -26,7 +27,7 @@ The main benefits of using Feuertiger should be:
 You can start coding simply using the Gitpod integration.
 
 1. Install Gitpod [chrome extension](https://chrome.google.com/webstore/detail/gitpod-online-ide/dodmmooeoklaejobgleioelladacbeki).
-2. Open Gitpod on Github for your feature branch.
+2. Open Gitpod on Gitlab for your feature branch.
 3. To be able to run the Firebase service you need to set some secret environment variables.<br/>
    You can also get these secrets by creating your own [Firebase](https://firebase.google.com/) project
 
@@ -55,6 +56,12 @@ You can start coding simply using the Gitpod integration.
     ```
 5. Start coding
 
+6. Login as Testuser
+    ```
+    User: feuertiger@feuertiger.com
+    Password: feuertiger
+    ```
+
 ---
 
 ## Architecture
@@ -63,24 +70,24 @@ Feuertiger is build with a nodejs backend and a react webapp.
 With this the howl application can run on any kind of serverless cloud functions, e.g. firebase-functions.
 Thous making it extremely cheap to operate.
 
-The git repo is set up as a mono-repository using Lena and GitHub npm package registry.
+The git repo is set up as a mono-repository using Lerna and Gitlab npm package registry.
 
 ### Services
 
-| Name          | Description      | URL                             |
-| ------------- | ---------------- | ------------------------------- |
-| proxy-graphql | graphql backend  | https://localhost:4000/graphiql |
-| web-client    | webclient server | https://localhost:3000/         |
+| Name       | Description         | URL                             |
+| ---------- | ------------------- | ------------------------------- |
+| graphql    | graphql backend     | https://localhost:4000/graphiql |
+| web-client | webclient server    | https://localhost:3000/         |
+| storybook  | view web-components | https://localhost:6006/         |
 
 ### Packages
 
-| Name                 | Description                             |
-| -------------------- | --------------------------------------- |
-| orc                  | ocr tooling                             |
-| schema-graphql       | backend api definiton source of truth   |
-| tools                | monorepo dev tooling                    |
-| utils-graphql        | tooling for graphql backend integration |
-| data-access-friebase | tooling for firebase access             |
+| Name           | Description                                   |
+| -------------- | --------------------------------------------- |
+| orc            | ocr tooling                                   |
+| schema-graphql | backend api definiton source of truth         |
+| schema-prisma  | persited data definiton source of truth       |
+| web-components | component and page library used by web-client |
 
 ---
 
@@ -94,7 +101,7 @@ The git repo is set up as a mono-repository using Lena and GitHub npm package re
 
 #### Database
 
--   [Firebase Firestore](https://firebase.google.com/)
+-   [Postgre](https://www.postgresql.org/)
 
 #### Services
 

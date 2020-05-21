@@ -1,5 +1,6 @@
 {
-    "image": "feuertiger/feuertiger-dev-environment:latest",
+    "dockerFile": ".dev-env.Dockerfile",
+    "postCreateCommand": "/etc/init.d/postgresql start && yarn && yarn linkdist",
     "forwardPorts": [3000, 4000],
     "extensions": [
         "max-SS.Cyberpunk",
@@ -15,9 +16,8 @@
         "eg2.vscode-npm-script",
         "esbenp.prettier-vscode",
         "Prisma.prisma",
+        "ckolkman.vscode-postgres",
         "jsayol.firebase-explorer",
-        "cschleiden.vscode-github-actions",
-        "me-dutour-mathieu.vscode-github-actions",
         "anseki.vscode-color",
         "msjsdiag.debugger-for-chrome"
     ]

@@ -10,29 +10,21 @@ interface State {
     addDialogOpen: boolean;
 }
 
-interface Participants {
-    edges: [
-        {
-            node: {
-                firstname: string;
-                lastname: string;
-            };
-        }
-    ];
+interface Person {
+    id: string;
+    firstname: string;
+    lastname: string;
 }
 
 interface Data {
     loading: boolean;
     error: any;
-    node: {
-        participants: Participants;
-    };
+    allPersons: Person[];
 }
 
 interface Props extends DataProps<Data> {}
 
-const MemberTable = ({ member }: { member: Participants }) => {
-    const participants = member.edges.map(({ node }) => node);
+const MemberTable = ({ member }: { member: Person[] }) => {
     return (
         <MaterialTable
             options={{
@@ -45,8 +37,6 @@ const MemberTable = ({ member }: { member: Participants }) => {
             columns={[
                 { title: 'Vorname', field: 'firstname' },
                 { title: 'Nachname', field: 'lastname' },
-                { title: 'Geburtsdatum', field: 'dateOfBirth' },
-                { title: 'Eintrittsdatum ', field: 'dateOfEntry' },
                 {
                     field: 'edit',
                     title: '',
@@ -58,7 +48,7 @@ const MemberTable = ({ member }: { member: Participants }) => {
                     )
                 }
             ]}
-            data={participants}
+            data={member}
             title="Mitglieder"
         />
     );
@@ -79,7 +69,7 @@ class Member extends React.Component<Props, State> {
     render() {
         const { addDialogOpen } = this.state;
         const { data } = this.props;
-        const { loading, error, node } = data || {};
+        const { loading, error, allPersons } = data || {};
 
         let content = null;
 
@@ -88,7 +78,7 @@ class Member extends React.Component<Props, State> {
         } else if (error) {
             content = <p>Error :(</p>;
         } else if (data) {
-            content = <MemberTable member={node.participants} />;
+            content = <MemberTable member={allPersons} />;
         }
 
         return (
@@ -120,38 +110,10 @@ class Member extends React.Component<Props, State> {
 
 export default graphql(gql`
     {
-        node(id: "Exercise:0") {
+        allPersons {
             id
-            __typename
-            ... on Exercise {
-                topic
-                timeslot {
-                    start
-                    end
-                }
-                leaders {
-                    pageInfo {
-                        hasNextPage
-                    }
-                    edges {
-                        node {
-                            firstname
-                            lastname
-                        }
-                    }
-                }
-                participants {
-                    pageInfo {
-                        hasNextPage
-                    }
-                    edges {
-                        node {
-                            firstname
-                            lastname
-                        }
-                    }
-                }
-            }
+            firstname
+            lastname
         }
     }
 `)(Member);

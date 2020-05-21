@@ -1,0 +1,21 @@
+type Query {
+    node(id: ID!): Node
+    nodes(ids: [ID!]!): [Node]
+    ocr(image: String): String
+    allPersons(filter: _Filter): [Person]
+    allExercises(filter: _Filter): [Exercise]
+}
+
+type Mutation {
+    delete(id: ID!): Boolean
+    createPerson(person: _Person!): Person
+    createExercise(exercise: _Exercise!): Exercise
+    updatePerson(person: _Person!): Person
+    updateExercise(exercise: _Exercise!): Exercise
+    addExerciseToPerson(exerciseId: ID!, personId: ID!): Boolean
+    addLeadersToExercise(exerciseId: ID!, personId: ID!): Boolean
+    addParticipantsToExercise(exerciseId: ID!, personId: ID!): Boolean
+    removeLeadersFromExercise(exerciseId: ID!, personId: ID!): Boolean
+    removeExerciseFromPerson(exerciseId: ID!, personId: ID!): Boolean
+    removeParticipantsFromExercise(exerciseId: ID!, personId: ID!): Boolean
+}

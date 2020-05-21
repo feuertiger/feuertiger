@@ -1,7 +1,0 @@
-Test:
-  extends:
-    - .docker-linux-runner
-  stage: Test
-  script:
-    - yarn linkdist
-    - yarn test

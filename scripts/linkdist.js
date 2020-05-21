@@ -9,15 +9,22 @@ const getPackagePath = (name) => {
     return packageJsonPath.split('package.json')[0];
 };
 
-(async () => {
-    const cwd = process.cwd();
-    const pkgs = await getPackages(cwd);
+const cwd = process.cwd();
 
+getPackages(cwd).then((pkgs) =>
     [...pkgs].forEach((pkg) => {
         const path = getPackagePath(pkg.name);
         const distpath = `${path}dist`;
         const distpathindex = `${distpath}/index.js`;
         const distpathindextypes = `${distpath}/index.d.ts`;
+
+        const hasIndexJs =
+            fs.existsSync(`${path}src/index.ts`) ||
+            fs.existsSync(`${path}src/index.js`);
+
+        if (!hasIndexJs) {
+            return;
+        }
 
         if (!fs.existsSync(distpath)) {
             fs.mkdirSync(distpath);
@@ -33,5 +40,5 @@ const getPackagePath = (name) => {
 
         // eslint-disable-next-line no-console
         console.log(`linked "${distpathindex}" to "../src/index.ts"`);
-    });
-})();
+    })
+);

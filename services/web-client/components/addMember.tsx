@@ -24,6 +24,7 @@ interface Props {
 interface State {
     showCam: boolean;
     ocrData?: string;
+    dateOfBirth: Date;
 }
 
 const videoConstraints = {
@@ -40,13 +41,16 @@ export default class AddMember extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
         this.state = {
-            showCam: false
+            showCam: false,
+            dateOfBirth: new Date()
         };
         this.webcamRef = React.createRef();
     }
 
     componentWillUnmount() {
-        this.stopOcr();
+        if (this.stopOcr) {
+            this.stopOcr();
+        }
     }
 
     handleOCR = async () => {
@@ -54,7 +58,9 @@ export default class AddMember extends React.Component<Props, State> {
     };
 
     handleCapture = () => {
-        this?.stopOcr();
+        if (this.stopOcr) {
+            this.stopOcr();
+        }
         this.setState({ showCam: false });
     };
 
@@ -72,7 +78,8 @@ export default class AddMember extends React.Component<Props, State> {
 
     render() {
         const { handleClose, open } = this.props;
-        const { showCam, ocrData } = this.state;
+        const { showCam, ocrData, dateOfBirth } = this.state;
+        console.log('dateOfBirth:', dateOfBirth);
         return (
             <Dialog
                 onClose={handleClose}
@@ -130,6 +137,7 @@ export default class AddMember extends React.Component<Props, State> {
                                     fullWidth
                                 />
                             </Grid>
+                            {/* TODO fix this issue */}
                             <Grid item xs={12}>
                                 <KeyboardDatePicker
                                     disableToolbar
@@ -138,7 +146,7 @@ export default class AddMember extends React.Component<Props, State> {
                                     margin="normal"
                                     id="dateOfBirth"
                                     label="Geburtsdatum"
-                                    value={new Date()}
+                                    value={dateOfBirth}
                                     onChange={() => {}}
                                     KeyboardButtonProps={{
                                         'aria-label': 'change date'

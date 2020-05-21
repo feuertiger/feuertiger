@@ -6,13 +6,11 @@
     "license": "ISC",
     "scripts": {
         "linkdist": "node ./scripts/linkdist.js --no-private",
+        "format": "prettier ./**/*.ts ./**/*.js ./**/*.tsx ./**/*.json ./**/*.graphql ./**/*.yml --write",
         "lint": "eslint ./**/*.{js,ts,tsx} --fix",
-        "format": "prettier ./**/*.ts ./**/*.js ./**/*.tsx ./**/*.json ./**/*.graphql --write",
-        "publish": "node ./scripts/publish.js && yarn format",
-        "link": "lerna link",
-        "test": "lerna run test --since --stream && codecov -t $CODECOV_TOKEN",
-        "build": "lerna run build --no-private --since --stream",
-        "dev": "lerna run dev --stream"
+        "test": "lerna run test --no-private --stream",
+        "build": "lerna run build --no-private --stream",
+        "dev": "lerna run dev --no-private --stream --parallel"
     },
     "packages": [
         "packages/*",
@@ -42,7 +40,6 @@
         "eslint-plugin-react-hooks": "4.0.0",
         "lerna": "3.20.2",
         "prettier": "2.0.5",
-        "yarn": "1.22.4",
-        "codecov": "3.6.5"
+        "yarn": "1.22.4"
     }
 }

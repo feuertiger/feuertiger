@@ -1,29 +1,74 @@
 stages:
     - Prepare
-    - Format
-    - Test
-    - Publish
+    - Build
     - Deploy
 
 variables:
-  DEV_ENVIRONMENT_IMAGE_TAG: $CI_REGISTRY/feuertiger/feuertiger/dev-environment:latest
+    DEV_ENVIRONMENT_IMAGE_TAG: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/dev-environment:latest
 
-.docker-linux-runner:
-  tags:
-    - docker
-    - Linux
-    - x86_64
+Prepare:
+    stage: Prepare
+    interruptible: true
+    tags:
+        - docker
+    image: docker:latest
+    services:
+        - docker:dind
+    before_script:
+        - docker info
+        - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    only:
+        changes:
+            - .dev-env.Dockerfile
+    script:
+        - docker pull $DEV_ENVIRONMENT_IMAGE_TAG || true
+        - docker build --cache-from $DEV_ENVIRONMENT_IMAGE_TAG -t $DEV_ENVIRONMENT_IMAGE_TAG --file .dev-env.Dockerfile .
+        - docker push $DEV_ENVIRONMENT_IMAGE_TAG
 
-.docker-in-docker:
-  extends:
-    - .docker-linux-runner
-  image: docker:19.03.1
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-
-include:
-  - local: '/ci/0-prepare.yml'
-  - local: '/ci/1-format.yml'
-  - local: '/ci/1-test.yml'
-  - local: '/ci/2-publish.yml'
-  - local: '/ci/3-deploy.yml'
+Build:
+    stage: Build
+    interruptible: true
+    tags:
+        - docker
+    image: $DEV_ENVIRONMENT_IMAGE_TAG
+    cache:
+        key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+    script:
+        - git checkout ${CI_COMMIT_BRANCH}
+        - yarn
+        - yarn linkdist
+        - yarn format
+        - git diff-index --quiet HEAD || git status
+        - git diff-index --quiet HEAD || git commit -am "format"
+        - yarn lint
+        - git diff-index --quiet HEAD || git status
+        - git diff-index --quiet HEAD || git commit -am "fix"
+        - yarn test --since
+        - yarn build --since
+        - echo '//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}'>.npmrc
+        - lerna publish prerelease --yes --exact --no-git-reset --preid=${CI_COMMIT_BRANCH}.${CI_COMMIT_SHORT_SHA} --registry=//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
+# Deploy:
+#     stage: Deploy
+#     interruptible: true
+#     tags:
+#         - docker
+#     image: $DEV_ENVIRONMENT_IMAGE_TAG
+#     variables:
+#     #     NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+#     #     FIREBASE_SECRETS_TYPE: ${{ secrets.FIREBASE_SECRETS_TYPE }}
+#     #     FIREBASE_SECRETS_PROJECT_ID: ${{ secrets.FIREBASE_SECRETS_PROJECT_ID }}
+#     #     FIREBASE_SECRETS_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_SECRETS_PRIVATE_KEY_ID }}
+#     #     FIREBASE_SECRETS_PRIVATE_KEY: ${{ secrets.FIREBASE_SECRETS_PRIVATE_KEY }}
+#     #     FIREBASE_SECRETS_CLIENT_EMAIL: ${{ secrets.FIREBASE_SECRETS_CLIENT_EMAIL }}
+#     #     FIREBASE_SECRETS_CLIENT_ID: ${{ secrets.FIREBASE_SECRETS_CLIENT_ID }}
+#     #     FIREBASE_SECRETS_AUTH_URI: ${{ secrets.FIREBASE_SECRETS_AUTH_URI }}
+#     #     FIREBASE_SECRETS_TOKEN_URI: ${{ secrets.FIREBASE_SECRETS_TOKEN_URI }}
+#     #     FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL }}
+#     #     FIREBASE_SECRETS_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_SECRETS_CLIENT_X509_CERT_URL }}
+#     script:
+#         - cd ./deployments/firebase/functions
+#         - echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}\n@feuertiger:registry=https://npm.pkg.github.com/feuertiger\npackage-lock=false" > .npmrc
+#         - npm i --no-package-lock
+#         - npm run createSecrets
+#         - npm run deploy:ci
