@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/graphql",
-    "version": "1.0.9-dev.dd24495a.0",
+    "version": "1.0.9-dev.6dbe3904.0",
     "description": "graphql backend",
     "main": "./dist/index.js",
     "scripts": {
@@ -19,10 +19,10 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@feuertiger/ocr": "1.0.9-dev.dd24495a.0",
-        "@feuertiger/schema-graphql": "1.0.9-dev.dd24495a.0",
-        "@feuertiger/schema-prisma": "1.0.9-dev.dd24495a.0",
-        "@feuertiger/tools": "1.0.9-dev.dd24495a.0",
+        "@feuertiger/ocr": "1.0.9-dev.6dbe3904.0",
+        "@feuertiger/schema-graphql": "1.0.9-dev.6dbe3904.0",
+        "@feuertiger/schema-prisma": "1.0.9-dev.6dbe3904.0",
+        "@feuertiger/tools": "1.0.9-dev.6dbe3904.0",
         "apollo-server": "2.13.1",
         "apollo-server-express": "2.13.1",
         "express": "4.17.1",

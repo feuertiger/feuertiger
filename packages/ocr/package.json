@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/ocr",
-    "version": "1.0.9-dev.dd24495a.0",
+    "version": "1.0.9-dev.6dbe3904.0",
     "description": "ocr for feuertiger",
     "main": "./dist/index.js",
     "sideEffects": false,

@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/e2e",
-    "version": "1.0.9-dev.dd24495a.0",
+    "version": "1.0.9-dev.6dbe3904.0",
     "description": "e2e testing",
     "private": true,
     "scripts": {
@@ -12,8 +12,8 @@
     "license": "ISC",
     "dependencies": {
         "@cypress/webpack-preprocessor": "5.4.1",
-        "@feuertiger/graphql": "1.0.9-dev.dd24495a.0",
-        "@feuertiger/web-client": "1.0.9-dev.dd24495a.0"
+        "@feuertiger/graphql": "1.0.9-dev.6dbe3904.0",
+        "@feuertiger/web-client": "1.0.9-dev.6dbe3904.0"
     },
     "devDependencies": {
         "cypress": "4.6.0",

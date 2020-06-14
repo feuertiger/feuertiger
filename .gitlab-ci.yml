@@ -6,6 +6,7 @@ stages:
 
 include:
     - template: Dependency-Scanning.gitlab-ci.yml
+    - template: License-Scanning.gitlab-ci.yml
 
 variables:
     # TODO handle images per branch
@@ -63,15 +64,19 @@ Build:
         - yarn
         # TODO: format all globals and packages based on lerna run --since
         - yarn format
-        - git diff-index --quiet HEAD || (git commit -am "format" && git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true")
+        - git diff-index --quiet HEAD || (git commit -am "format" && git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true" -o ci.variable="LICENSE_MANAGEMENT_DISABLED=true")
         - yarn build
         - yarn linkdist
         # TODO: lint based on lerna run --since
         - yarn lint
-        - git diff-index --quiet HEAD || (git commit -am "fix" && git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true")
+        - git diff-index --quiet HEAD || (git commit -am "fix" && git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true" -o ci.variable="LICENSE_MANAGEMENT_DISABLED=true")
         - yarn test --since
         - lerna publish prerelease --no-push --yes --exact --no-git-reset --preid=${CI_COMMIT_BRANCH}.${CI_COMMIT_SHORT_SHA} --registry=//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
-        - git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true" origin HEAD:$CI_COMMIT_REF_NAME
+        - git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true" -o ci.variable="LICENSE_MANAGEMENT_DISABLED=true" origin HEAD:$CI_COMMIT_REF_NAME
+
+    #artifacts:
+    #    reports:
+    #        test_coverage: coverage/lcov-report/index.html
 
 #######################################################
 # Deploy firebase functions                           #
@@ -82,6 +87,9 @@ Deploy:
     only:
         refs:
             - dev
+    except:
+        variables:
+            - $CI_SKIP == "true"
     interruptible: true
     tags:
         - docker

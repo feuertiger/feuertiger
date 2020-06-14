@@ -3,7 +3,7 @@
     "private": true,
     "version": "1.0.0",
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "scripts": {
         "linkdist": "node ./scripts/linkdist.js --no-private",
         "format": "prettier ./**/*.ts ./**/*.js ./**/*.tsx ./**/*.json ./**/*.graphql ./**/*.yml --write",
