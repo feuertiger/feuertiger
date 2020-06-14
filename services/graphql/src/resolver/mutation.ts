@@ -25,17 +25,8 @@ const Mutation: MutationResolvers = {
         const data = mapInput<PersonCreateInput>(args.person, {
             connections: ['exercisesParticipated', 'exercisesLeaded']
         });
-
-        try {
-            console.log('data: ', data);
-            const created = await context.db.person.create({ data });
-            console.log('created: ', created);
-            return created;
-        } catch (error) {
-            console.log('error: ', error);
-        }
-
-        return null;
+        const created = await context.db.person.create({ data });
+        return created;
     },
     updatePerson: async (_parent, args, context: Context) => {
         const data = mapInput<PersonUpdateInput>(args.person, {

@@ -1,30 +1,20 @@
 import React from 'react';
-import { graphql, DataProps } from '@apollo/react-hoc';
-import gql from 'graphql-tag';
 import { Grid, Paper, Button, CircularProgress, Fab } from '@material-ui/core';
 import MaterialTable from 'material-table';
 import EditIcon from '@material-ui/icons/Edit';
-import AddMember from './addMember';
+import { startOcr } from '@feuertiger/ocr';
+import { AllPersonsQueryResult } from '@feuertiger/schema-graphql';
+import { AddMember } from '../addMember/addMember';
 
 interface State {
     addDialogOpen: boolean;
 }
 
-interface Person {
-    id: string;
-    firstname: string;
-    lastname: string;
-}
-
-interface Data {
-    loading: boolean;
-    error: any;
-    allPersons: Person[];
-}
-
-interface Props extends DataProps<Data> {}
-
-const MemberTable = ({ member }: { member: Person[] }) => {
+const MemberTable = ({
+    member
+}: {
+    member: AllPersonsQueryResult['data']['allPersons'];
+}) => {
     return (
         <MaterialTable
             options={{
@@ -54,8 +44,10 @@ const MemberTable = ({ member }: { member: Person[] }) => {
     );
 };
 
-class Member extends React.Component<Props, State> {
-    constructor(props: Props) {
+export interface MemberProps extends AllPersonsQueryResult {}
+
+export class Member extends React.Component<MemberProps, State> {
+    constructor(props: MemberProps) {
         super(props);
         this.state = {
             addDialogOpen: false
@@ -68,8 +60,11 @@ class Member extends React.Component<Props, State> {
 
     render() {
         const { addDialogOpen } = this.state;
-        const { data } = this.props;
-        const { loading, error, allPersons } = data || {};
+        const {
+            error,
+            loading,
+            data: { allPersons }
+        } = this.props;
 
         let content = null;
 
@@ -77,13 +72,14 @@ class Member extends React.Component<Props, State> {
             content = <CircularProgress />;
         } else if (error) {
             content = <p>Error :(</p>;
-        } else if (data) {
+        } else if (allPersons) {
             content = <MemberTable member={allPersons} />;
         }
 
         return (
             <>
                 <AddMember
+                    startOcr={startOcr}
                     open={addDialogOpen}
                     handleClose={this.handleCloseAddDialog}
                 />
@@ -91,6 +87,7 @@ class Member extends React.Component<Props, State> {
                     {/* Chart */}
                     <Grid item xs={12} md={6} lg={4}>
                         <Button
+                            id="add-member-button"
                             variant="contained"
                             color="primary"
                             onClick={this.handleOpenAddDialog}
@@ -107,13 +104,3 @@ class Member extends React.Component<Props, State> {
         );
     }
 }
-
-export default graphql(gql`
-    {
-        allPersons {
-            id
-            firstname
-            lastname
-        }
-    }
-`)(Member);

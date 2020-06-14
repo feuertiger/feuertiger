@@ -1,8 +1,10 @@
 {
     "name": "@feuertiger/web-components",
-    "version": "1.0.9-dependabot.791ff97.0",
+    "version": "1.0.9-dev.dd24495a.0",
+    "sideEffects": false,
     "scripts": {
-        "dev": "start-storybook -p 6006 -c .storybook"
+        "dev": "start-storybook -p 5000 -c .storybook",
+        "test": "jest --collect-coverage"
     },
     "main": "./src/index.ts",
     "repository": {
@@ -11,33 +13,52 @@
         "directory": "packages/web-components"
     },
     "publishConfig": {
-        "registry": "https://gitlab.com/api/v4/projects/feuertiger/feuertiger/packages/npm/"
+        "@feuertiger:registry": "https://gitlab.com/api/v4/projects/18726494/packages/npm/"
     },
     "dependencies": {
-        "@babel/core": "^7.9.6",
-        "@date-io/date-fns": "2.6.1",
+        "@date-io/date-fns": "1.3.13",
+        "@feuertiger/ocr": "1.0.9-dev.dd24495a.0",
+        "@feuertiger/schema-graphql": "1.0.9-dev.dd24495a.0",
         "@material-ui/core": "4.9.14",
         "@material-ui/icons": "4.9.1",
         "@material-ui/lab": "4.0.0-alpha.53",
         "@material-ui/pickers": "3.2.10",
         "@material-ui/styles": "4.9.14",
-        "@storybook/react": "^5.3.18",
+        "@storybook/react": "5.3.19",
+        "date-fns": "2.0.0-beta.5",
+        "faker": "4.1.0",
+        "lodash.merge": "4.6.2",
         "material-table": "1.57.2",
-        "next": "^9.4.2",
+        "material-ui-dropzone": "^3.1.0",
+        "next": "9.4.2",
         "react": "16.13.1",
         "react-dom": "16.13.1",
+        "react-lazylog": "^4.5.2",
         "react-webcam": "5.0.1",
         "styled-components": "5.1.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.9.6",
-        "@storybook/cli": "^5.3.18",
-        "@storybook/react": "^5.3.18",
+        "@babel/core": "7.9.6",
+        "@babel/plugin-proposal-class-properties": "7.10.1",
+        "@babel/preset-env": "7.9.6",
+        "@babel/preset-react": "7.9.4",
+        "@jest/globals": "26.0.1",
+        "@storybook/cli": "5.3.18",
+        "@storybook/react": "5.3.18",
+        "@types/enzyme-adapter-react-16": "1.0.6",
+        "@types/faker": "4.1.12",
         "@types/react": "16.9.17",
         "@types/react-native": "0.62.9",
         "@types/styled-components": "5.1.0",
-        "babel-loader": "^8.1.0",
+        "babel-jest": "26.0.1",
+        "babel-loader": "8.1.0",
         "babel-plugin-styled-components": "1.10.7",
-        "babel-preset-react-app": "^9.1.2"
+        "babel-preset-react-app": "9.1.2",
+        "enzyme": "3.11.0",
+        "enzyme-adapter-react-16": "1.15.2",
+        "enzyme-to-json": "3.4.4",
+        "jest": "26.0.1",
+        "jest-environment-enzyme": "7.1.2",
+        "jest-enzyme": "7.1.2"
     }
 }

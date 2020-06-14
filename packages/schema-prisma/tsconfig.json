@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "./dist" /* Redirect output structure to the directory. */,
-        "rootDir": "./seeds" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+        "rootDir": "./" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     },
     "extends": "../../tsconfig.json",
     "include": ["./seeds/**/*", "./dist/**/*"]

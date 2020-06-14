@@ -1,13 +1,25 @@
 stages:
-    - Prepare
-    - Build
-    - Deploy
+    - prepare
+    - test
+    - build
+    - deploy
+
+include:
+    - template: Dependency-Scanning.gitlab-ci.yml
 
 variables:
+    # TODO handle images per branch
     DEV_ENVIRONMENT_IMAGE_TAG: $CI_REGISTRY/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME/dev-environment:latest
 
+###############################################################################################
+# Build and Push the docker image representing the dev and build environment for the project  #
+# - triggered if dockerfile hast changed                                                      #
+###############################################################################################
 Prepare:
-    stage: Prepare
+    stage: prepare
+    only:
+        changes:
+            - .dev-env.Dockerfile
     interruptible: true
     tags:
         - docker
@@ -17,58 +29,83 @@ Prepare:
     before_script:
         - docker info
         - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    only:
-        changes:
-            - .dev-env.Dockerfile
     script:
         - docker pull $DEV_ENVIRONMENT_IMAGE_TAG || true
         - docker build --cache-from $DEV_ENVIRONMENT_IMAGE_TAG -t $DEV_ENVIRONMENT_IMAGE_TAG --file .dev-env.Dockerfile .
         - docker push $DEV_ENVIRONMENT_IMAGE_TAG
 
+######################################################################################
+# Format Code, Build, Lint, Test and Publish all changed NPM packages of the project #
+# - triggered by every push except pushes from ci                                    #
+######################################################################################
 Build:
-    stage: Build
+    stage: build
+    except:
+        variables:
+            - $CI_SKIP == "true"
     interruptible: true
     tags:
         - docker
     image: $DEV_ENVIRONMENT_IMAGE_TAG
     cache:
         key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+        untracked: true
+    before_script:
+        - >
+            ${CI_COMMIT_REF_PROTECTED}
+            && git remote set-url origin "https://${CI_JOB_USER_PROTECTED}:${CI_JOB_TOKEN_PROTECTED}@${CI_REPOSITORY_URL#*@}"
+            || git remote set-url origin "https://${CI_JOB_USER_UNPROTECTED}:${CI_JOB_TOKEN_UNPROTECTED}@${CI_REPOSITORY_URL#*@}"
+        - git config --global user.name "${GITLAB_USER_NAME}"
+        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        - npm config set '//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
     script:
-        - git checkout ${CI_COMMIT_BRANCH}
+        - git checkout ${CI_COMMIT_REF_NAME}
         - yarn
-        - yarn linkdist
+        # TODO: format all globals and packages based on lerna run --since
         - yarn format
-        - git diff-index --quiet HEAD || git status
-        - git diff-index --quiet HEAD || git commit -am "format"
+        - git diff-index --quiet HEAD || (git commit -am "format" && git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true")
+        - yarn build
+        - yarn linkdist
+        # TODO: lint based on lerna run --since
         - yarn lint
-        - git diff-index --quiet HEAD || git status
-        - git diff-index --quiet HEAD || git commit -am "fix"
+        - git diff-index --quiet HEAD || (git commit -am "fix" && git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true")
         - yarn test --since
-        - yarn build --since
-        - echo '//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}'>.npmrc
-        - lerna publish prerelease --yes --exact --no-git-reset --preid=${CI_COMMIT_BRANCH}.${CI_COMMIT_SHORT_SHA} --registry=//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
-# Deploy:
-#     stage: Deploy
-#     interruptible: true
-#     tags:
-#         - docker
-#     image: $DEV_ENVIRONMENT_IMAGE_TAG
-#     variables:
-#     #     NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#     #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-#     #     FIREBASE_SECRETS_TYPE: ${{ secrets.FIREBASE_SECRETS_TYPE }}
-#     #     FIREBASE_SECRETS_PROJECT_ID: ${{ secrets.FIREBASE_SECRETS_PROJECT_ID }}
-#     #     FIREBASE_SECRETS_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_SECRETS_PRIVATE_KEY_ID }}
-#     #     FIREBASE_SECRETS_PRIVATE_KEY: ${{ secrets.FIREBASE_SECRETS_PRIVATE_KEY }}
-#     #     FIREBASE_SECRETS_CLIENT_EMAIL: ${{ secrets.FIREBASE_SECRETS_CLIENT_EMAIL }}
-#     #     FIREBASE_SECRETS_CLIENT_ID: ${{ secrets.FIREBASE_SECRETS_CLIENT_ID }}
-#     #     FIREBASE_SECRETS_AUTH_URI: ${{ secrets.FIREBASE_SECRETS_AUTH_URI }}
-#     #     FIREBASE_SECRETS_TOKEN_URI: ${{ secrets.FIREBASE_SECRETS_TOKEN_URI }}
-#     #     FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL }}
-#     #     FIREBASE_SECRETS_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_SECRETS_CLIENT_X509_CERT_URL }}
-#     script:
-#         - cd ./deployments/firebase/functions
-#         - echo -e "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}\n@feuertiger:registry=https://npm.pkg.github.com/feuertiger\npackage-lock=false" > .npmrc
-#         - npm i --no-package-lock
-#         - npm run createSecrets
-#         - npm run deploy:ci
+        - lerna publish prerelease --no-push --yes --exact --no-git-reset --preid=${CI_COMMIT_BRANCH}.${CI_COMMIT_SHORT_SHA} --registry=//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/
+        - git push -o ci.variable="CI_SKIP=true" -o ci.variable="DEPENDENCY_SCANNING_DISABLED=true" origin HEAD:$CI_COMMIT_REF_NAME
+
+#######################################################
+# Deploy firebase functions                           #
+# - triggered by pushes on deploy branches made by ci #
+#######################################################
+Deploy:
+    stage: deploy
+    only:
+        refs:
+            - dev
+    interruptible: true
+    tags:
+        - docker
+    image: $DEV_ENVIRONMENT_IMAGE_TAG
+    cache:
+        key: '$CI_JOB_NAME-$CI_COMMIT_REF_SLUG'
+        untracked: true
+    variables:
+        FIREBASE_TOKEN: ${FIREBASE_TOKEN}
+        FIREBASE_SECRETS_TYPE: ${FIREBASE_SECRETS_TYPE}
+        FIREBASE_SECRETS_PROJECT_ID: ${FIREBASE_SECRETS_PROJECT_ID}
+        FIREBASE_SECRETS_PRIVATE_KEY_ID: ${FIREBASE_SECRETS_PRIVATE_KEY_ID}
+        FIREBASE_SECRETS_PRIVATE_KEY: ${FIREBASE_SECRETS_PRIVATE_KEY}
+        FIREBASE_SECRETS_CLIENT_EMAIL: ${FIREBASE_SECRETS_CLIENT_EMAIL}
+        FIREBASE_SECRETS_CLIENT_ID: ${FIREBASE_SECRETS_CLIENT_ID}
+        FIREBASE_SECRETS_AUTH_URI: ${FIREBASE_SECRETS_AUTH_URI}
+        FIREBASE_SECRETS_TOKEN_URI: ${FIREBASE_SECRETS_TOKEN_URI}
+        FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL: ${FIREBASE_SECRETS_AUTH_PROVIDER_X509_CERT_URL}
+        FIREBASE_SECRETS_CLIENT_X509_CERT_URL: ${FIREBASE_SECRETS_CLIENT_X509_CERT_URL}
+    before_script:
+        - npm config set '//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
+    script:
+        - cd ./deployments/firebase/functions
+        - npm config set '//gitlab.com/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken' "${CI_JOB_TOKEN}"
+        - npm i --no-package-lock
+        - npm run createSecrets
+        - npm run deploy:ci

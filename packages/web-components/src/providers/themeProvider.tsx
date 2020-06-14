@@ -1,33 +1,24 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { createMuiTheme } from '@material-ui/core';
-import { ThemeProvider as MuiThemeProvider } from 'styled-components';
-import red from '@material-ui/core/colors/red';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+import { ThemeProvider as StyledComponentThemeProvider } from 'styled-components';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 const theme = createMuiTheme({
     palette: {
+        type: 'dark',
         primary: {
             main: '#c90024'
-        },
-        secondary: {
-            main: '#19857b'
-        },
-        error: {
-            main: red.A400
-        },
-        background: {
-            default: '#fff'
         }
     }
 });
 
 export interface ThemeProviderProps {
-    children: React.ComponentType;
+    children: JSX.Element | (false | JSX.Element)[];
 }
 
-export class ThemeProvider extends React.Component<Props> {
+export class ThemeProvider extends React.Component<ThemeProviderProps> {
     componentDidMount() {
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles && jssStyles.parentNode) {
@@ -39,9 +30,13 @@ export class ThemeProvider extends React.Component<Props> {
         const { children } = this.props;
 
         return (
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
-            </MuiPickersUtilsProvider>
+            <StyledComponentThemeProvider theme={theme}>
+                <MuiThemeProvider theme={theme}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <>{children}</>
+                    </MuiPickersUtilsProvider>
+                </MuiThemeProvider>
+            </StyledComponentThemeProvider>
         );
     }
 }

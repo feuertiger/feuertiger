@@ -3,9 +3,17 @@ const { getFirebaseAppSecrets } = require('@feuertiger/tools');
 const withTM = require('next-transpile-modules');
 
 module.exports = withTM({
-    transpileModules: ['@feuertiger/ocr', '@feuertiger/web-components'],
-    webpack: (config) =>
-        merge(
+    transpileModules: [
+        '@feuertiger/schema-graphql',
+        '@feuertiger/ocr',
+        '@feuertiger/web-components'
+    ],
+    webpack: (config) => {
+        config.module.rules.push({
+            test: /\.test.tsx$/,
+            loader: 'ignore-loader'
+        });
+        return merge(
             {
                 node: {
                     fs: 'empty',
@@ -15,7 +23,8 @@ module.exports = withTM({
                 }
             },
             config
-        ),
+        );
+    },
     publicRuntimeConfig: {
         tokens: getFirebaseAppSecrets()
     },

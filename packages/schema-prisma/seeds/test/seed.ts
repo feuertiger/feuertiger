@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { PrismaClient } from '../../dist';
 import exercises from './exercise';
 import persons from './person';

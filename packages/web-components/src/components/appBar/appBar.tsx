@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import AuthProps from '../../types/authProps';
+import { AuthProps } from '../../types/authProps';
 
 const drawerWidth = 240;
 
@@ -65,7 +65,7 @@ export class AppBar extends React.Component<AppBarProps> {
     render() {
         const { open, handleDrawerOpen } = this.props;
         return (
-            <StyledAppBar position="absolute" open={open}>
+            <StyledAppBar open={open}>
                 <StyledToolbar>
                     <StyledIconButton
                         edge="start"
@@ -79,7 +79,11 @@ export class AppBar extends React.Component<AppBarProps> {
                     <StyledTypography variant="h6" color="inherit" noWrap>
                         Dashboard
                     </StyledTypography>
-                    <IconButton color="inherit" onClick={this.handleLogout}>
+                    <IconButton
+                        color="inherit"
+                        onClick={this.handleLogout}
+                        id="app-bar-exit-button"
+                    >
                         <ExitToAppIcon />
                     </IconButton>
                 </StyledToolbar>

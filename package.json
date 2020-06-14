@@ -10,17 +10,21 @@
         "lint": "eslint ./**/*.{js,ts,tsx} --fix",
         "test": "lerna run test --no-private --stream",
         "build": "lerna run build --no-private --stream",
-        "dev": "lerna run dev --no-private --stream --parallel"
+        "e2e": "lerna run e2e --stream",
+        "dev:db": "/etc/init.d/postgresql start",
+        "dev": "yarn linkdist && yarn dev:db && lerna run dev --no-private --stream --parallel"
     },
     "packages": [
         "packages/*",
         "services/*",
-        "deployments/firebase/functions"
+        "deployments/firebase/functions",
+        "e2e"
     ],
     "workspaces": [
         "packages/*",
         "services/*",
-        "deployments/firebase/functions"
+        "deployments/firebase/functions",
+        "e2e"
     ],
     "dependencies": {
         "@lerna/package-graph": "3.18.5",

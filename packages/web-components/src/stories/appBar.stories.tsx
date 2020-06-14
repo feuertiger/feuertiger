@@ -2,10 +2,10 @@
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
 import { AppBar, AppBarProps } from '../components/appBar/appBar';
-import auth from '../types/authProps.mock';
+import { authPropsMock } from '../types/authProps.mock';
 
 const defaultProps: AppBarProps = {
-    ...auth,
+    ...authPropsMock,
     handleDrawerOpen: () => {},
     open: true
 };

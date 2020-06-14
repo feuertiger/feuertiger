@@ -1,26 +1,27 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import NextApp, { AppInitialProps } from 'next/app';
-import { ApolloProvider } from '@apollo/react-hooks';
-import Skeleton from '@material-ui/lab/Skeleton';
-
-import { Container, ThemeProvider } from '@feuertiger/web-components';
-import withAuth, { AuthProps, AuthStateProps } from '../container/withAuth';
+import Head from 'next/head';
+import { ApolloProvider } from '@apollo/client';
+import {
+    Container,
+    ThemeProvider,
+    Login,
+    AuthProps
+} from '@feuertiger/web-components';
+import withAuth, { AuthStateProps } from '../container/withAuth';
 import withApollo, { ApolloProps } from '../container/withApollo';
 
-import Login from '../components/login';
-import Head from '../components/head';
-
-interface Props
+export interface AppProps
     extends AppInitialProps,
         ApolloProps,
         AuthProps,
         AuthStateProps {}
 
-class App extends NextApp<Props> {
-    // remove it here
+export class App extends NextApp<AppProps> {
     componentDidMount() {
         const jssStyles = document.querySelector('#jss-server-side');
-        if (jssStyles && jssStyles.parentNode) {
+        if (jssStyles?.parentNode) {
             jssStyles.parentNode.removeChild(jssStyles);
         }
     }
@@ -36,27 +37,25 @@ class App extends NextApp<Props> {
         } = this.props;
 
         const showLogin = !isLoading && !isSignedIn;
-        const showSkeleton = isLoading || !isSignedIn;
 
         return (
             <ApolloProvider client={apollo}>
+                <Head>
+                    <title>Feuertiger</title>
+                    <link rel="icon" href="/favicon.ico" />
+                    <link
+                        rel="stylesheet"
+                        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+                    />
+                    <link
+                        rel="stylesheet"
+                        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                    />
+                </Head>
                 <ThemeProvider>
-                    <Head />
                     {showLogin && <Login auth={auth} />}
                     <Container auth={auth}>
-                        {showSkeleton ? (
-                            <>
-                                <Skeleton height={40} />
-                                <Skeleton variant="rect" height={190} />
-                                <Skeleton height={40} />
-                                <Skeleton variant="rect" height={190} />
-                                <Skeleton height={40} />
-                                <Skeleton variant="rect" height={190} />
-                            </>
-                        ) : (
-                            // eslint-disable-next-line
-                            <Component {...pageProps} />
-                        )}
+                        {Component && <Component {...pageProps} />}
                     </Container>
                 </ThemeProvider>
             </ApolloProvider>
@@ -64,8 +63,5 @@ class App extends NextApp<Props> {
     }
 }
 
-// const appWithApollo = withApollo(App);
-// export default withAuth(appWithApollo);
-
-const appWithAuth = (withAuth(App) as unknown) as typeof NextApp;
+const appWithAuth = withAuth(App);
 export default withApollo(appWithAuth);

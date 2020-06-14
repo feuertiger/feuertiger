@@ -13,16 +13,16 @@
         "forceConsistentCasingInFileNames": true,
         "esModuleInterop": true,
         "resolveJsonModule": true,
-        "isolatedModules": true
+        "isolatedModules": true,
+        "rootDirs": ["./pages", "./container"]
     },
     "include": [
         "next-env.d.ts",
-        "**/*.js",
         "**/*.ts",
         "**/*.tsx",
         "pages/_document.js",
         "pages/_app.js",
         "next.config.js"
     ],
-    "exclude": ["node_modules", "**/*.test.ts", "dist"]
+    "exclude": ["node_modules"]
 }

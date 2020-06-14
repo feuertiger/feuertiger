@@ -1,7 +1,7 @@
 {
     "dockerFile": ".dev-env.Dockerfile",
     "postCreateCommand": "/etc/init.d/postgresql start && yarn && yarn linkdist",
-    "forwardPorts": [3000, 4000],
+    "forwardPorts": [3000, 4000, 5000, 6000],
     "extensions": [
         "max-SS.Cyberpunk",
         "eamodio.gitlens",
@@ -19,6 +19,7 @@
         "ckolkman.vscode-postgres",
         "jsayol.firebase-explorer",
         "anseki.vscode-color",
-        "msjsdiag.debugger-for-chrome"
+        "msjsdiag.debugger-for-chrome",
+        "naumovs.color-highlight"
     ]
 }

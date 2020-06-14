@@ -14,11 +14,14 @@ import {
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import CenterFocusStrongIcon from '@material-ui/icons/CenterFocusStrong';
 import Webcam from 'react-webcam';
-import { startOcr } from '@feuertiger/ocr';
 
-interface Props {
+export interface AddMemberProps {
     handleClose: () => void;
     open: boolean;
+    startOcr: (
+        video: HTMLVideoElement,
+        handleData: (data: string) => void
+    ) => Promise<() => void>;
 }
 
 interface State {
@@ -33,12 +36,12 @@ const videoConstraints = {
     facingMode: 'environment'
 };
 
-export default class AddMember extends React.Component<Props, State> {
+export class AddMember extends React.Component<AddMemberProps, State> {
     webcamRef: React.RefObject<Webcam> & React.RefObject<HTMLVideoElement>;
 
     stopOcr: () => void | undefined;
 
-    constructor(props: Props) {
+    constructor(props: AddMemberProps) {
         super(props);
         this.state = {
             showCam: false,
@@ -71,6 +74,7 @@ export default class AddMember extends React.Component<Props, State> {
     };
 
     handleUserMedia = async () => {
+        const { startOcr } = this.props;
         const { video } = this.webcamRef.current;
         const stopOCR = await startOcr(video, this.handleOCRData);
         this.stopOcr = stopOCR;
@@ -79,7 +83,6 @@ export default class AddMember extends React.Component<Props, State> {
     render() {
         const { handleClose, open } = this.props;
         const { showCam, ocrData, dateOfBirth } = this.state;
-        console.log('dateOfBirth:', dateOfBirth);
         return (
             <Dialog
                 onClose={handleClose}

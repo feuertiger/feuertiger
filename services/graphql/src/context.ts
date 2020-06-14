@@ -1,5 +1,5 @@
-// import admin from 'firebase-admin';
-import { AuthenticationError } from 'apollo-server';
+import admin from 'firebase-admin';
+// import { AuthenticationError } from 'apollo-server';
 import { ExpressContext } from 'apollo-server-express/dist/ApolloServer';
 
 import { PrismaClient } from '@feuertiger/schema-prisma';
@@ -13,17 +13,19 @@ export interface Context {
 export const prisma = new PrismaClient();
 
 export default async ({ req }: ExpressContext) => {
-    // const token = req.headers.authorization || '';
+    const token = req.headers.authorization || '';
     try {
-        // const decodedToken = await admin.auth().verifyIdToken(token);
+        const decodedToken = await admin.auth().verifyIdToken(token);
         return {
             db: prisma,
             user: {
-                // uid: decodedToken.uid
-                // userUUID: req.uuid,
+                uid: decodedToken.uid
             }
         };
     } catch (error) {
-        throw new AuthenticationError('you must be logged in');
+        return {
+            db: prisma
+        };
+        // throw new AuthenticationError('you must be logged in');
     }
 };

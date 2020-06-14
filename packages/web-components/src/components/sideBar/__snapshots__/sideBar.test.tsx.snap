@@ -1,0 +1,202 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test side bar should be closed 1`] = `
+<sideBar__StyledDrawer
+  open={false}
+  variant="permanent"
+>
+  <sideBar__StyledDiv>
+    <WithStyles(ForwardRef(IconButton))
+      id="sidebar-close-button"
+      onClick={[Function]}
+    >
+      <ChevronLeftIcon />
+    </WithStyles(ForwardRef(IconButton))>
+  </sideBar__StyledDiv>
+  <WithStyles(ForwardRef(Divider)) />
+  <WithStyles(ForwardRef(List))>
+    <div>
+      <Link
+        href="/"
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <DashboardIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Dashboard"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+      <Link
+        href="/member"
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <PeopleAltIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Mitglieder"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+      <Link
+        href="/exercices "
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <PeopleIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Übungen"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+    </div>
+  </WithStyles(ForwardRef(List))>
+  <WithStyles(ForwardRef(Divider)) />
+  <WithStyles(ForwardRef(List))>
+    <div />
+  </WithStyles(ForwardRef(List))>
+</sideBar__StyledDrawer>
+`;
+
+exports[`Test side bar should be open 1`] = `
+<sideBar__StyledDrawer
+  open={true}
+  variant="permanent"
+>
+  <sideBar__StyledDiv>
+    <WithStyles(ForwardRef(IconButton))
+      id="sidebar-close-button"
+      onClick={[Function]}
+    >
+      <ChevronLeftIcon />
+    </WithStyles(ForwardRef(IconButton))>
+  </sideBar__StyledDiv>
+  <WithStyles(ForwardRef(Divider)) />
+  <WithStyles(ForwardRef(List))>
+    <div>
+      <Link
+        href="/"
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <DashboardIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Dashboard"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+      <Link
+        href="/member"
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <PeopleAltIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Mitglieder"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+      <Link
+        href="/exercices "
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <PeopleIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Übungen"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+    </div>
+  </WithStyles(ForwardRef(List))>
+  <WithStyles(ForwardRef(Divider)) />
+  <WithStyles(ForwardRef(List))>
+    <div />
+  </WithStyles(ForwardRef(List))>
+</sideBar__StyledDrawer>
+`;
+
+exports[`Test side bar should create side bar 1`] = `
+<sideBar__StyledDrawer
+  open={false}
+  variant="permanent"
+>
+  <sideBar__StyledDiv>
+    <WithStyles(ForwardRef(IconButton))
+      id="sidebar-close-button"
+      onClick={[Function]}
+    >
+      <ChevronLeftIcon />
+    </WithStyles(ForwardRef(IconButton))>
+  </sideBar__StyledDiv>
+  <WithStyles(ForwardRef(Divider)) />
+  <WithStyles(ForwardRef(List))>
+    <div>
+      <Link
+        href="/"
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <DashboardIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Dashboard"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+      <Link
+        href="/member"
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <PeopleAltIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Mitglieder"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+      <Link
+        href="/exercices "
+      >
+        <WithStyles(ForwardRef(ListItem))
+          button={true}
+        >
+          <WithStyles(ForwardRef(ListItemIcon))>
+            <PeopleIcon />
+          </WithStyles(ForwardRef(ListItemIcon))>
+          <WithStyles(ForwardRef(ListItemText))
+            primary="Übungen"
+          />
+        </WithStyles(ForwardRef(ListItem))>
+      </Link>
+    </div>
+  </WithStyles(ForwardRef(List))>
+  <WithStyles(ForwardRef(Divider)) />
+  <WithStyles(ForwardRef(List))>
+    <div />
+  </WithStyles(ForwardRef(List))>
+</sideBar__StyledDrawer>
+`;

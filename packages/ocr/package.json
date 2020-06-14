@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/ocr",
-    "version": "1.0.9-dependabot.791ff97.0",
+    "version": "1.0.9-dev.dd24495a.0",
     "description": "ocr for feuertiger",
     "main": "./dist/index.js",
     "sideEffects": false,
@@ -13,7 +13,7 @@
         "directory": "packages/ocr"
     },
     "publishConfig": {
-        "registry": "https://gitlab.com/api/v4/projects/feuertiger/feuertiger/packages/npm/"
+        "@feuertiger:registry": "https://gitlab.com/api/v4/projects/18726494/packages/npm/"
     },
     "author": "",
     "license": "ISC",

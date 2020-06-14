@@ -2,6 +2,8 @@ node_modules
 dist
 lib
 coverage
+videos
+screenshots
 
 package-lock.json
 secrets.json
@@ -9,6 +11,7 @@ secrets.json
 *.en
 *.log
 *.code-workspace
-*.npmrc
 *.env
 *.traineddata
+
+report.*.json

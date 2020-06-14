@@ -1,15 +1,16 @@
-import casual from 'casual';
+import faker from 'faker';
 import { PersonCreateInput } from '../../dist';
 import exercises from './exercise';
 
 const length = 100;
 
-casual.seed(length);
+faker.locale = 'de';
+faker.seed(length);
 
 const persons: Array<PersonCreateInput> = Array.from({ length }, () => ({
-    id: `person:${casual.uuid}`,
-    firstname: casual.first_name,
-    lastname: casual.last_name,
+    id: `person:${faker.random.uuid()}`,
+    firstname: faker.name.firstName(),
+    lastname: faker.name.lastName(),
     exercisesParticipated: {
         connect: [
             {

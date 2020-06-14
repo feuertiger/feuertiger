@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/schema-prisma",
-    "version": "1.0.9-dependabot.791ff97.0",
+    "version": "1.0.9-dev.dd24495a.0",
     "description": "prisma schema",
     "main": "./dist/index.js",
     "scripts": {
@@ -8,7 +8,7 @@
         "migrate:save": "prisma migrate save --experimental --name=$(git rev-parse --short HEAD) --schema=./src/schema.prisma",
         "migrate:up": "prisma migrate up --experimental --create-db --schema=./src/schema.prisma",
         "seed:test": "ts-node ./seeds/test/seed.ts",
-        "dev": "yarn migrate:save && yarn migrate:up && yarn seed:test && yarn build --watch"
+        "dev": "yarn migrate:save && yarn migrate:up && yarn build && yarn seed:test && yarn build --watch"
     },
     "repository": {
         "type": "git",
@@ -16,16 +16,16 @@
         "directory": "packages/schema-prisma"
     },
     "publishConfig": {
-        "registry": "https://gitlab.com/api/v4/projects/feuertiger/feuertiger/packages/npm/"
+        "@feuertiger:registry": "https://gitlab.com/api/v4/projects/18726494/packages/npm/"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@prisma/client": "2.0.0-beta.5",
-        "casual": "^1.6.2"
+        "@prisma/client": "2.0.0",
+        "faker": "4.1.0"
     },
     "devDependencies": {
-        "@prisma/cli": "2.0.0-beta.5",
+        "@prisma/cli": "2.0.0",
         "ts-node": "8.10.1"
     },
     "gitHead": "7d224ef51bbc23af4badd7b61540546319995beb"

@@ -1,16 +1,17 @@
-import casual from 'casual';
+import faker from 'faker';
 import { ExerciseCreateInput } from '../../dist';
 
 const length = 200;
 
-casual.seed(length);
+faker.locale = 'de';
+faker.seed(length);
 
 export default Array.from({ length }, () => ({
-    id: `exercise:${casual.uuid}`,
-    topic: casual.title,
+    id: `exercise:${faker.random.uuid()}`,
+    topic: faker.random.words(2),
     timeslot: {
         create: {
-            id: `timeslot:${casual.uuid}`,
+            id: `timeslot:${faker.random.uuid()}`,
             start: new Date(),
             end: new Date()
         }

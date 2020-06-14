@@ -1,8 +1,8 @@
 {
     "name": "@feuertiger/schema-graphql",
-    "version": "1.0.9-dependabot.791ff97.0",
+    "version": "1.0.9-dev.dd24495a.0",
     "description": "graphql schema",
-    "main": "./dist/index.js",
+    "main": "./dist/index.ts",
     "scripts": {
         "build": "graphql-codegen --config codegen.yml",
         "dev": "yarn build --watch"
@@ -13,20 +13,21 @@
         "directory": "packages/schema-graphql"
     },
     "publishConfig": {
-        "registry": "https://gitlab.com/api/v4/projects/feuertiger/feuertiger/packages/npm/"
+        "@feuertiger:registry": "https://gitlab.com/api/v4/projects/18726494/packages/npm/"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@apollo/client": "3.0.0-beta.50",
         "graphql": "14.5.8"
     },
     "devDependencies": {
         "@graphql-codegen/cli": "1.13.5",
         "@graphql-codegen/introspection": "1.13.5",
-        "@graphql-codegen/schema-ast": "^1.14.0",
+        "@graphql-codegen/schema-ast": "1.14.0",
         "@graphql-codegen/typescript": "1.13.5",
         "@graphql-codegen/typescript-operations": "1.13.5",
-        "@graphql-codegen/typescript-react-apollo": "1.11.2",
+        "@graphql-codegen/typescript-react-apollo": "1.14.0",
         "@graphql-codegen/typescript-resolvers": "1.13.5",
         "prettier": "1.19.1"
     },

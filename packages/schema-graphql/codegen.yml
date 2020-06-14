@@ -1,17 +1,24 @@
 overwrite: true
 schema: ./src/**/*.graphql
+documents: ./src/**/*.graphql
 hooks:
     afterAllFileWrite:
         - prettier --write
 generates:
-    ./dist/index.d.ts:
-        declarationKind: 'class'
-        config:
-            minify: false
+    ./dist/index.ts:
         plugins:
             - typescript
             - typescript-operations
             - typescript-resolvers
+            - typescript-react-apollo
+        config:
+            minify: false
+            withHooks: false
+            withComponent: false
+            withHOC: false
+            withResultType: true
+            reactApolloVersion: 3
+            gqlImport: '@apollo/client#gql'
     ./dist/schema.json:
         config:
             minify: false

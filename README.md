@@ -76,9 +76,9 @@ The git repo is set up as a mono-repository using Lerna and Gitlab npm package r
 
 | Name       | Description         | URL                             |
 | ---------- | ------------------- | ------------------------------- |
+| storybook  | view web-components | https://localhost:5000/         |
 | graphql    | graphql backend     | https://localhost:4000/graphiql |
 | web-client | webclient server    | https://localhost:3000/         |
-| storybook  | view web-components | https://localhost:6006/         |
 
 ### Packages
 

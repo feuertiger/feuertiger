@@ -1,372 +1,372 @@
 {
-  "version": "0.3.14-fixed",
-  "steps": [
-    {
-      "tag": "CreateSource",
-      "source": "postgresql"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Source",
-        "source": "postgresql"
-      },
-      "argument": "url",
-      "value": "\"postgresql://feuertiger:feuertiger@localhost:5432/feuertiger\""
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Source",
-        "source": "postgresql"
-      },
-      "argument": "provider",
-      "value": "\"postgresql\""
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Exercise"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Exercise",
-      "field": "id",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "id"
+    "version": "0.3.14-fixed",
+    "steps": [
+        {
+            "tag": "CreateSource",
+            "source": "postgresql"
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Exercise",
-      "field": "topic",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Exercise",
-      "field": "timeslot",
-      "type": "Timeslot",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "timeslot"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Source",
+                "source": "postgresql"
+            },
+            "argument": "url",
+            "value": "\"postgresql://feuertiger:feuertiger@localhost:5432/feuertiger\""
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "timeslot"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Source",
+                "source": "postgresql"
+            },
+            "argument": "provider",
+            "value": "\"postgresql\""
         },
-        "directive": "relation"
-      },
-      "argument": "fields",
-      "value": "[timeslotId]"
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "timeslot"
+        {
+            "tag": "CreateModel",
+            "model": "Exercise"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Exercise",
-      "field": "timeslotId",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Exercise",
-      "field": "leaders",
-      "type": "Person",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "leaders"
+        {
+            "tag": "CreateField",
+            "model": "Exercise",
+            "field": "id",
+            "type": "String",
+            "arity": "Required"
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "leaders"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "id"
+                },
+                "directive": "id"
+            }
         },
-        "directive": "relation"
-      },
-      "argument": "",
-      "value": "\"Exercise_Leader\""
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "leaders"
+        {
+            "tag": "CreateField",
+            "model": "Exercise",
+            "field": "topic",
+            "type": "String",
+            "arity": "Required"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Exercise",
-      "field": "participants",
-      "type": "Person",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "participants"
+        {
+            "tag": "CreateField",
+            "model": "Exercise",
+            "field": "timeslot",
+            "type": "Timeslot",
+            "arity": "Required"
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "participants"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "timeslot"
+                },
+                "directive": "relation"
+            }
         },
-        "directive": "relation"
-      },
-      "argument": "",
-      "value": "\"Exercise_Participant\""
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Exercise",
-          "field": "participants"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "timeslot"
+                },
+                "directive": "relation"
+            },
+            "argument": "fields",
+            "value": "[timeslotId]"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Person"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Person",
-      "field": "id",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Person",
-          "field": "id"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "timeslot"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Person",
-      "field": "firstname",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Person",
-      "field": "lastname",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Person",
-      "field": "exercisesParticipated",
-      "type": "Exercise",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Person",
-          "field": "exercisesParticipated"
+        {
+            "tag": "CreateField",
+            "model": "Exercise",
+            "field": "timeslotId",
+            "type": "String",
+            "arity": "Required"
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Person",
-          "field": "exercisesParticipated"
+        {
+            "tag": "CreateField",
+            "model": "Exercise",
+            "field": "leaders",
+            "type": "Person",
+            "arity": "List"
         },
-        "directive": "relation"
-      },
-      "argument": "",
-      "value": "\"Exercise_Participant\""
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Person",
-          "field": "exercisesParticipated"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "leaders"
+                },
+                "directive": "relation"
+            }
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Person",
-      "field": "exercisesLeaded",
-      "type": "Exercise",
-      "arity": "List"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Person",
-          "field": "exercisesLeaded"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "leaders"
+                },
+                "directive": "relation"
+            },
+            "argument": "",
+            "value": "\"Exercise_Leader\""
         },
-        "directive": "relation"
-      }
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Person",
-          "field": "exercisesLeaded"
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "leaders"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
         },
-        "directive": "relation"
-      },
-      "argument": "",
-      "value": "\"Exercise_Leader\""
-    },
-    {
-      "tag": "CreateArgument",
-      "location": {
-        "tag": "Directive",
-        "path": {
-          "tag": "Field",
-          "model": "Person",
-          "field": "exercisesLeaded"
+        {
+            "tag": "CreateField",
+            "model": "Exercise",
+            "field": "participants",
+            "type": "Person",
+            "arity": "List"
         },
-        "directive": "relation"
-      },
-      "argument": "references",
-      "value": "[id]"
-    },
-    {
-      "tag": "CreateModel",
-      "model": "Timeslot"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Timeslot",
-      "field": "id",
-      "type": "String",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateDirective",
-      "location": {
-        "path": {
-          "tag": "Field",
-          "model": "Timeslot",
-          "field": "id"
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "participants"
+                },
+                "directive": "relation"
+            }
         },
-        "directive": "id"
-      }
-    },
-    {
-      "tag": "CreateField",
-      "model": "Timeslot",
-      "field": "start",
-      "type": "DateTime",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Timeslot",
-      "field": "end",
-      "type": "DateTime",
-      "arity": "Required"
-    },
-    {
-      "tag": "CreateField",
-      "model": "Timeslot",
-      "field": "Exercise",
-      "type": "Exercise",
-      "arity": "List"
-    }
-  ]
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "participants"
+                },
+                "directive": "relation"
+            },
+            "argument": "",
+            "value": "\"Exercise_Participant\""
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Exercise",
+                    "field": "participants"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        },
+        {
+            "tag": "CreateModel",
+            "model": "Person"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Person",
+            "field": "id",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Person",
+                    "field": "id"
+                },
+                "directive": "id"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Person",
+            "field": "firstname",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Person",
+            "field": "lastname",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Person",
+            "field": "exercisesParticipated",
+            "type": "Exercise",
+            "arity": "List"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Person",
+                    "field": "exercisesParticipated"
+                },
+                "directive": "relation"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Person",
+                    "field": "exercisesParticipated"
+                },
+                "directive": "relation"
+            },
+            "argument": "",
+            "value": "\"Exercise_Participant\""
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Person",
+                    "field": "exercisesParticipated"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Person",
+            "field": "exercisesLeaded",
+            "type": "Exercise",
+            "arity": "List"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Person",
+                    "field": "exercisesLeaded"
+                },
+                "directive": "relation"
+            }
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Person",
+                    "field": "exercisesLeaded"
+                },
+                "directive": "relation"
+            },
+            "argument": "",
+            "value": "\"Exercise_Leader\""
+        },
+        {
+            "tag": "CreateArgument",
+            "location": {
+                "tag": "Directive",
+                "path": {
+                    "tag": "Field",
+                    "model": "Person",
+                    "field": "exercisesLeaded"
+                },
+                "directive": "relation"
+            },
+            "argument": "references",
+            "value": "[id]"
+        },
+        {
+            "tag": "CreateModel",
+            "model": "Timeslot"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Timeslot",
+            "field": "id",
+            "type": "String",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateDirective",
+            "location": {
+                "path": {
+                    "tag": "Field",
+                    "model": "Timeslot",
+                    "field": "id"
+                },
+                "directive": "id"
+            }
+        },
+        {
+            "tag": "CreateField",
+            "model": "Timeslot",
+            "field": "start",
+            "type": "DateTime",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Timeslot",
+            "field": "end",
+            "type": "DateTime",
+            "arity": "Required"
+        },
+        {
+            "tag": "CreateField",
+            "model": "Timeslot",
+            "field": "Exercise",
+            "type": "Exercise",
+            "arity": "List"
+        }
+    ]
 }

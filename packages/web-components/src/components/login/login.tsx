@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 
-import { AuthProps } from '../container/withAuth';
+import { AuthProps } from '../../types/authProps';
 
 const PaperDiv = styled.div`
     margin: ${({ theme }) => theme.spacing(8, 4)};
@@ -34,10 +34,10 @@ const SubmitButton = styled(Button)`
     margin: ${({ theme }) => theme.spacing(3, 0, 2)};
 `;
 
-interface Props extends AuthProps {}
+export interface LoginProps extends AuthProps {}
 
-export default class Login extends React.Component<Props> {
-    handleLogin = (event) => {
+export class Login extends React.Component<LoginProps> {
+    handleLogin = (event: any) => {
         event.preventDefault();
         const email = event.target.email.value;
         const password = event.target.password.value;
@@ -47,7 +47,7 @@ export default class Login extends React.Component<Props> {
 
     render() {
         return (
-            <Dialog aria-labelledby="simple-dialog-title" open>
+            <Dialog aria-labelledby="login" id="login-dialog" open>
                 <DialogContent>
                     <PaperDiv>
                         <CssBaseline />
@@ -94,6 +94,7 @@ export default class Login extends React.Component<Props> {
                                 fullWidth
                                 variant="contained"
                                 color="primary"
+                                id="login-submit-button"
                             >
                                 Login
                             </SubmitButton>

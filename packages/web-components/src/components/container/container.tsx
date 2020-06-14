@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { CssBaseline, Container as MuiContainer } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { AppBar } from '../appBar/appBar';
 import { SideBar } from '../sideBar/sideBar';
-import AuthProps from '../../types/authProps';
+import { AuthProps } from '../../types/authProps';
 
 export interface ContainerProps extends AuthProps {
-    children?: ReactNode;
+    children?: React.ReactNode | null | undefined;
 }
 
 interface State {
@@ -15,12 +16,20 @@ interface State {
 
 const StyledMain = styled.main`
     flex-grow: 1;
-    height: 100vh;
     overflow: auto;
-`;
+    margin-top: ${({ theme }) => theme.spacing(7)}px;
+    height: calc(100vh - ${({ theme }) => theme.spacing(7)}px);
 
-const AppBarSpacer = styled.div`
-    ${({ theme }) => theme.mixins.toolbar}
+    @media (min-width: ${({ theme }) =>
+            theme.breakpoints.values.xs}px) and (orientation: landscape) {
+        margin-top: 48px;
+        height: calc(100vh - ${({ theme }) => theme.spacing(6)}px);
+    }
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+        margin-top: 64px;
+        height: calc(100vh - ${({ theme }) => theme.spacing(8)}px);
+    }
 `;
 
 const StyledContainer = styled(MuiContainer)`
@@ -60,8 +69,20 @@ export class Container extends React.Component<ContainerProps, State> {
                     handleDrawerClose={this.handleDrawerClose}
                 />
                 <StyledMain>
-                    <AppBarSpacer />
-                    <StyledContainer maxWidth="lg">{children}</StyledContainer>
+                    <StyledContainer maxWidth="lg">
+                        {children || (
+                            <>
+                                <Skeleton height={40} />
+                                <Skeleton variant="rect" height={190} />
+                                <Skeleton height={40} />
+                                <Skeleton variant="rect" height={190} />
+                                <Skeleton height={40} />
+                                <Skeleton variant="rect" height={190} />
+                                <Skeleton height={40} />
+                                <Skeleton variant="rect" height={190} />
+                            </>
+                        )}
+                    </StyledContainer>
                 </StyledMain>
             </RootDiv>
         );

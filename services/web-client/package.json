@@ -1,9 +1,11 @@
 {
     "name": "@feuertiger/web-client",
-    "version": "1.0.9-dependabot.791ff97.0",
+    "version": "1.0.9-dev.dd24495a.0",
     "main": "./index.js",
+    "sideEffects": false,
     "scripts": {
         "dev": "next dev",
+        "test": "jest --collect-coverage",
         "build": "next build",
         "start": "next start"
     },
@@ -16,46 +18,48 @@
         "directory": "services/web-client"
     },
     "publishConfig": {
-        "registry": "https://gitlab.com/api/v4/projects/feuertiger/feuertiger/packages/npm/"
+        "@feuertiger:registry": "https://gitlab.com/api/v4/projects/18726494/packages/npm/"
     },
     "dependencies": {
-        "@apollo/react-hoc": "3.1.5",
-        "@apollo/react-hooks": "3.1.5",
-        "@date-io/date-fns": "2.6.1",
-        "@feuertiger/web-components": "1.0.9-dependabot.791ff97.0",
-        "@feuertiger/ocr": "1.0.9-dependabot.791ff97.0",
-        "@feuertiger/tools": "1.0.9-dependabot.791ff97.0",
+        "@apollo/client": "3.0.0-beta.50",
+        "@apollo/link-context": "2.0.0-beta.3",
+        "@feuertiger/schema-graphql": "1.0.9-dev.dd24495a.0",
+        "@feuertiger/tools": "1.0.9-dev.dd24495a.0",
+        "@feuertiger/web-components": "1.0.9-dev.dd24495a.0",
         "@material-ui/core": "4.9.14",
-        "@material-ui/icons": "4.9.1",
         "@material-ui/lab": "4.0.0-alpha.53",
-        "@material-ui/pickers": "3.2.10",
         "@material-ui/styles": "4.9.14",
-        "apollo-cache-inmemory": "1.6.6",
-        "apollo-client": "2.6.10",
-        "apollo-link-context": "1.0.20",
-        "apollo-link-http": "1.5.17",
         "body-parser": "1.19.0",
-        "date-fns": "2.13.0",
         "express": "4.17.1",
         "firebase": "7.14.4",
         "graphql": "15.0.0",
         "graphql-tag": "2.10.3",
         "isomorphic-unfetch": "3.0.0",
         "lodash.merge": "4.6.2",
-        "material-table": "1.57.2",
         "next": "9.4.0",
         "next-transpile-modules": "2.3.1",
         "next-with-apollo": "5.0.1",
         "node-fetch": "2.6.0",
         "react": "16.13.1",
         "react-dom": "16.13.1",
-        "react-webcam": "5.0.1",
         "styled-components": "5.1.0"
     },
     "devDependencies": {
+        "@jest/globals": "26.0.1",
+        "@types/enzyme-adapter-react-16": "1.0.6",
         "@types/react": "16.9.17",
         "@types/react-native": "0.62.9",
         "@types/styled-components": "5.1.0",
-        "babel-plugin-styled-components": "1.10.7"
+        "babel-jest": "26.0.1",
+        "babel-loader": "8.1.0",
+        "babel-plugin-styled-components": "1.10.7",
+        "babel-preset-react-app": "9.1.2",
+        "enzyme": "3.11.0",
+        "enzyme-adapter-react-16": "1.15.2",
+        "enzyme-to-json": "3.4.4",
+        "ignore-loader": "^0.1.2",
+        "jest": "26.0.1",
+        "jest-environment-enzyme": "7.1.2",
+        "jest-enzyme": "7.1.2"
     }
 }
