@@ -1,6 +1,6 @@
 {
     "npmClient": "yarn",
-    "version": "1.0.9-dev.6dbe3904.0",
+    "version": "1.0.9-renovate-configure.c359646c.0",
     "useWorkspaces": true,
     "packages": [
         "packages/*",
