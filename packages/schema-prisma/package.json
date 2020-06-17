@@ -1,6 +1,6 @@
 {
     "name": "@feuertiger/schema-prisma",
-    "version": "1.0.9-dev.1c470170.0",
+    "version": "1.0.9-dev.a6b2a31d.0",
     "description": "prisma schema",
     "main": "./dist/index.js",
     "scripts": {
