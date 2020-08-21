@@ -25,7 +25,7 @@
         "faker": "4.1.0"
     },
     "devDependencies": {
-        "@prisma/cli": "2.0.0",
+        "@prisma/cli": "2.5.1",
         "ts-node": "8.10.1"
     },
     "gitHead": "7d224ef51bbc23af4badd7b61540546319995beb"
