@@ -3981,10 +3981,10 @@
     read-package-tree "^5.2.1"
     resolve "^1.7.1"
 
-"@pulumi/gcp@3.15.0":
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-3.15.0.tgz#fbfa5103f190b5518c89ece060667e7865b0b1e2"
-  integrity sha512-oRotHCBmze9qMP6PPnRZhD6B4spYvXKF3CIpjBRnxebcHpObtZG9MrgOE5ctcIVMWZoON7UMDPGj14OU8QX4gg==
+"@pulumi/gcp@3.25.0":
+  version "3.25.0"
+  resolved "https://registry.yarnpkg.com/@pulumi/gcp/-/gcp-3.25.0.tgz#dd30d2f7432592b146c354d06fff68ae4e00e328"
+  integrity sha512-C5yLaaIMBZej+D19fBscRD0O6uHARteyv/TBzseWe1kjIQhgD80RUQFmdgdqYoUH2cu7wUqxB6FYQPwfRGgUQg==
   dependencies:
     "@pulumi/pulumi" "^2.0.0"
     "@types/express" "^4.16.0"
