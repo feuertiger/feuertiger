@@ -24,7 +24,7 @@
     },
     "devDependencies": {
         "@types/node-fetch": "2.5.7",
-        "@types/uuid": "7.0.3"
+        "@types/uuid": "7.0.4"
     },
     "gitHead": "05e4076488965ce7af8aec66f20dae4fb035d3b0"
 }
