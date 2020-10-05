@@ -11,7 +11,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@cypress/webpack-preprocessor": "5.4.1",
+        "@cypress/webpack-preprocessor": "5.4.6",
         "@feuertiger/graphql": "1.0.9-dev.532b11a.0",
         "@feuertiger/web-client": "1.0.9-dev.532b11a.0"
     },
