@@ -16,7 +16,7 @@
         "@feuertiger/web-client": "1.0.9-dev.532b11a.0"
     },
     "devDependencies": {
-        "cypress": "4.6.0",
+        "cypress": "4.12.1",
         "ts-loader": "7.0.5",
         "typescript": "4.0.2",
         "webpack": "4.43.0"
