@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "@feuertiger/config": "1.0.9-dev.532b11a.0",
-        "@pulumi/digitalocean": "2.6.0",
+        "@pulumi/digitalocean": "2.8.0",
         "@pulumi/kubernetes": "2.4.1",
         "@pulumi/kubernetesx": "0.1.3",
         "@pulumi/pulumi": "2.7.1"
