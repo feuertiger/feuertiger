@@ -20,7 +20,7 @@
         "apollo-server": "2.18.2",
         "apollo-server-express": "2.18.2",
         "express": "4.17.1",
-        "firebase": "7.14.4",
+        "firebase": "7.23.0",
         "firebase-admin": "8.12.1",
         "graphql": "15.3.0",
         "lodash.merge": "4.6.2"
